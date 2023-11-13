@@ -45,7 +45,14 @@ public class VisitDate {
     }
 
     public static VisitDate from(int date) {
+        validateDateRange(date);
         return DATE_CACHE.get(date);
+    }
+
+    private static void validateDateRange(int date) {
+        if (date < START_DAY.getValue() || date > END_DAY.getValue()) {
+            throw new IllegalArgumentException();
+        }
     }
 
     public boolean isWeekday() {
