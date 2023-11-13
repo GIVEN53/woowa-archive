@@ -19,4 +19,18 @@ class MenuGroupTest {
         // when & then
         assertThat(MenuGroup.isAppetizer(menu)).isFalse();
     }
+
+    @ParameterizedTest
+    @EnumSource(value = Menu.class, names = {"T_BONE_STEAK", "BARBECUED_RIB", "SEAFOOD_PASTA", "CHRISTMAS_PASTA"})
+    void 메인_메뉴이면_true를_반환한다(Menu menu) {
+        // when & then
+        assertThat(MenuGroup.isMain(menu)).isTrue();
+    }
+
+    @ParameterizedTest
+    @EnumSource(value = Menu.class, names = {"TAPAS", "ICE_CREAM", "RED_WINE"})
+    void 메인_메뉴가_아니면_false를_반환한다(Menu menu) {
+        // when & then
+        assertThat(MenuGroup.isMain(menu)).isFalse();
+    }
 }
