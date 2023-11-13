@@ -19,4 +19,17 @@ class OrdersTest {
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage(INVALID_ORDER.getMessage());
     }
+
+    @Test
+    void 음료_메뉴만_주문한_경우_예외가_발생한다() {
+        // given
+        Order order1 = Order.of("제로콜라", 1);
+        Order order2 = Order.of("레드와인", 5);
+        Order order3 = Order.of("샴페인", 6);
+
+        // when & then
+        assertThatThrownBy(() -> new Orders(List.of(order1, order2, order3)))
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage(INVALID_ORDER.getMessage());
+    }
 }
