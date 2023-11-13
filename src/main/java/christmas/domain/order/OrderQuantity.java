@@ -2,13 +2,11 @@ package christmas.domain.order;
 
 import static christmas.ui.ErrorMessage.INVALID_ORDER;
 
-class OrderQuantity {
+record OrderQuantity(int quantity) {
     private static final int MINIMUM_QUANTITY = 1;
-    private final int quantity;
 
-    public OrderQuantity(int quantity) {
+    OrderQuantity {
         validateQuantity(quantity);
-        this.quantity = quantity;
     }
 
     private void validateQuantity(int quantity) {
