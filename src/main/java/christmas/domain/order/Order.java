@@ -16,4 +16,16 @@ public class Order {
         OrderQuantity orderQuantity = new OrderQuantity(quantity);
         return new Order(menu, orderQuantity);
     }
+
+    public String getMenuName() {
+        return menu.getName();
+    }
+
+    public int getMenuPrice() {
+        return menu.getPrice();
+    }
+
+    public int getOrderQuantity() {
+        return orderQuantity.quantity();
+    }
 }
