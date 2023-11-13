@@ -17,15 +17,15 @@ public class Order {
         return new Order(menu, orderQuantity);
     }
 
-    public String getMenuName() {
+    String getMenuName() {
         return menu.getName();
     }
 
-    public int getMenuPrice() {
+    int getMenuPrice() {
         return menu.getPrice();
     }
 
-    public int getOrderQuantity() {
+    int getOrderQuantity() {
         return orderQuantity.quantity();
     }
 }
