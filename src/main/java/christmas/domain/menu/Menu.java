@@ -1,5 +1,10 @@
 package christmas.domain.menu;
 
+import static christmas.ui.ErrorMessage.*;
+
+import christmas.ui.ErrorMessage;
+import java.util.Arrays;
+
 public enum Menu {
     MUSHROOM_SOUP("양송이수프", 6_000),
     TAPAS("타파스", 5_500),
@@ -14,11 +19,20 @@ public enum Menu {
     RED_WINE("레드와인", 60_000),
     CHAMPAGNE("샴페인", 25_000);
 
+    public static final Menu[] MENUS = Menu.values();
+
     private final String name;
     private final int price;
 
     Menu(String name, int price) {
         this.name = name;
         this.price = price;
+    }
+
+    public static Menu findByName(String name) {
+        return Arrays.stream(MENUS)
+                .filter(m -> m.name.equals(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(INVALID_MENU_NAME.getMessage()));
     }
 }
