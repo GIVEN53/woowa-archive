@@ -27,11 +27,11 @@ public enum MenuGroup {
         this.menus = menus;
     }
 
-    public static boolean isAppetizer(Menu menu) {
+    public static boolean isAppetizerMenu(Menu menu) {
         return APPETIZER.menus.contains(menu);
     }
 
-    public static boolean isMain(Menu menu) {
+    public static boolean isMainMenu(Menu menu) {
         return MAIN.menus.contains(menu);
     }
 }
