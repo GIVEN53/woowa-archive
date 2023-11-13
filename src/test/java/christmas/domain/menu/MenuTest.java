@@ -12,7 +12,7 @@ import static christmas.domain.menu.Menu.SEAFOOD_PASTA;
 import static christmas.domain.menu.Menu.TAPAS;
 import static christmas.domain.menu.Menu.T_BONE_STEAK;
 import static christmas.domain.menu.Menu.ZERO_COKE;
-import static christmas.ui.ErrorMessage.INVALID_MENU_NAME;
+import static christmas.ui.ErrorMessage.INVALID_ORDER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -58,6 +58,6 @@ class MenuTest {
         // when & then
         assertThatThrownBy(() -> Menu.findByName(invalidName))
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage(INVALID_MENU_NAME.getMessage());
+                .hasMessage(INVALID_ORDER.getMessage());
     }
 }
