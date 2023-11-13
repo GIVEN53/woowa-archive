@@ -4,6 +4,7 @@ import static christmas.domain.calender.EventDateConfig.END_DAY;
 import static christmas.domain.calender.EventDateConfig.MONTH;
 import static christmas.domain.calender.EventDateConfig.START_DAY;
 import static christmas.domain.calender.EventDateConfig.YEAR;
+import static christmas.ui.ErrorMessage.*;
 import static java.time.DayOfWeek.FRIDAY;
 import static java.time.DayOfWeek.MONDAY;
 import static java.time.DayOfWeek.SATURDAY;
@@ -12,6 +13,7 @@ import static java.time.DayOfWeek.THURSDAY;
 import static java.time.DayOfWeek.TUESDAY;
 import static java.time.DayOfWeek.WEDNESDAY;
 
+import christmas.ui.ErrorMessage;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -51,7 +53,7 @@ public class VisitDate {
 
     private static void validateDateRange(int date) {
         if (date < START_DAY.getValue() || date > END_DAY.getValue()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(INVALID_DATE.getMessage());
         }
     }
 

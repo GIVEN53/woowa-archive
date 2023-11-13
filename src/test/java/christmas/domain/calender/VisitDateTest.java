@@ -1,5 +1,6 @@
 package christmas.domain.calender;
 
+import static christmas.ui.ErrorMessage.INVALID_DATE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -91,6 +92,7 @@ class VisitDateTest {
     void 유효하지_않은_날짜로_객체를_생성하면_예외가_발생한다(int invalidDate) {
         // when
         assertThatThrownBy(() -> VisitDate.from(invalidDate))
-                .isExactlyInstanceOf(IllegalArgumentException.class);
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage(INVALID_DATE.getMessage());
     }
 }
