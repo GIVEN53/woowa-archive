@@ -48,7 +48,7 @@ public class VisitDate {
         return DATE_CACHE.get(date);
     }
 
-    public boolean isWeekDay() {
+    public boolean isWeekday() {
         return WEEKDAY.contains(dayOfWeek);
     }
 

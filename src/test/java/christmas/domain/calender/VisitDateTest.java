@@ -31,7 +31,7 @@ class VisitDateTest {
         VisitDate visitDate = VisitDate.from(date);
 
         // then
-        assertThat(visitDate.isWeekDay()).isTrue();
+        assertThat(visitDate.isWeekday()).isTrue();
     }
 
     @ParameterizedTest(name = TEST_NAME)
@@ -41,7 +41,7 @@ class VisitDateTest {
         VisitDate visitDate = VisitDate.from(date);
 
         // then
-        assertThat(visitDate.isWeekDay()).isFalse();
+        assertThat(visitDate.isWeekday()).isFalse();
     }
 
     @ParameterizedTest(name = TEST_NAME)
