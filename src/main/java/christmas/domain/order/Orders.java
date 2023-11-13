@@ -9,6 +9,7 @@ public class Orders {
 
     public Orders(List<Order> orders) {
         validateDuplicateMenu(orders);
+        validateOnlyBeverageMenu(orders);
         this.orders = orders;
     }
 
@@ -18,6 +19,15 @@ public class Orders {
                 .distinct()
                 .count();
         if (distinctCount != orders.size()) {
+            throw new IllegalArgumentException(INVALID_ORDER.getMessage());
+        }
+    }
+
+    private void validateOnlyBeverageMenu(List<Order> orders) {
+        boolean onlyBeverageMenu = orders.stream()
+                .allMatch(Order::hasBeverageMenu);
+
+        if (onlyBeverageMenu) {
             throw new IllegalArgumentException(INVALID_ORDER.getMessage());
         }
     }

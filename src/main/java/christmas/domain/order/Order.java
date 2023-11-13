@@ -28,4 +28,8 @@ public class Order {
     int getOrderQuantity() {
         return orderQuantity.quantity();
     }
+
+    boolean hasBeverageMenu() {
+        return menu.isBeverage();
+    }
 }
