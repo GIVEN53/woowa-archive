@@ -1,6 +1,7 @@
 package christmas.domain.calender;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -83,5 +84,13 @@ class VisitDateTest {
 
         // then
         assertThat(visitDate.isStarDay()).isFalse();
+    }
+
+    @ParameterizedTest(name = TEST_NAME)
+    @ValueSource(ints = {0, -1, 32, 33})
+    void 유효하지_않은_날짜로_객체를_생성하면_예외가_발생한다(int invalidDate) {
+        // when
+        assertThatThrownBy(() -> VisitDate.from(invalidDate))
+                .isExactlyInstanceOf(IllegalArgumentException.class);
     }
 }
