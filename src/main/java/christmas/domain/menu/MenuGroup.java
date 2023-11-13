@@ -30,4 +30,8 @@ public enum MenuGroup {
     public static boolean isAppetizer(Menu menu) {
         return APPETIZER.menus.contains(menu);
     }
+
+    public static boolean isMain(Menu menu) {
+        return MAIN.menus.contains(menu);
+    }
 }
