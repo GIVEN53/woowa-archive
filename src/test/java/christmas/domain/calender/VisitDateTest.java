@@ -11,14 +11,14 @@ import org.junit.jupiter.params.provider.ValueSource;
 class VisitDateTest {
     private static final String TEST_NAME = "12월 {arguments}일";
 
-    static List<Integer> provideWeekdays() {
+    static List<Integer> provideWeekday() {
         return IntStream.rangeClosed(3, 31)
                 .filter(day -> day % 7 != 1 && day % 7 != 2)
                 .boxed()
                 .toList();
     }
 
-    static List<Integer> provideWeekends() {
+    static List<Integer> provideWeekend() {
         return IntStream.rangeClosed(3, 31)
                 .filter(day -> day % 7 == 1 || day % 7 == 2)
                 .boxed()
@@ -26,7 +26,7 @@ class VisitDateTest {
     }
 
     @ParameterizedTest(name = TEST_NAME)
-    @MethodSource("provideWeekdays")
+    @MethodSource("provideWeekday")
     void 평일이면_true를_반환한다(int date) {
         // when
         VisitDate visitDate = VisitDate.from(date);
@@ -36,7 +36,7 @@ class VisitDateTest {
     }
 
     @ParameterizedTest(name = TEST_NAME)
-    @MethodSource("provideWeekends")
+    @MethodSource("provideWeekend")
     void 평일이_아니면_false를_반환한다(int date) {
         // when
         VisitDate visitDate = VisitDate.from(date);
@@ -46,7 +46,7 @@ class VisitDateTest {
     }
 
     @ParameterizedTest(name = TEST_NAME)
-    @MethodSource("provideWeekends")
+    @MethodSource("provideWeekend")
     void 주말이면_true를_반환한다(int date) {
         // when
         VisitDate visitDate = VisitDate.from(date);
@@ -56,7 +56,7 @@ class VisitDateTest {
     }
 
     @ParameterizedTest(name = TEST_NAME)
-    @MethodSource("provideWeekdays")
+    @MethodSource("provideWeekday")
     void 주말이_아니면_false를_반환한다(int date) {
         // when
         VisitDate visitDate = VisitDate.from(date);
