@@ -15,7 +15,7 @@ import static christmas.domain.menu.Menu.ZERO_COKE;
 
 import java.util.List;
 
-public enum MenuGroup {
+enum MenuGroup {
     APPETIZER(List.of(MUSHROOM_SOUP, TAPAS, CAESAR_SALAD)),
     MAIN(List.of(T_BONE_STEAK, BARBECUED_RIB, SEAFOOD_PASTA, CHRISTMAS_PASTA)),
     DESSERT(List.of(CHOCO_CAKE, ICE_CREAM)),
@@ -27,19 +27,19 @@ public enum MenuGroup {
         this.menus = menus;
     }
 
-    public static boolean isAppetizerMenu(Menu menu) {
+    static boolean isAppetizerMenu(Menu menu) {
         return APPETIZER.menus.contains(menu);
     }
 
-    public static boolean isMainMenu(Menu menu) {
+    static boolean isMainMenu(Menu menu) {
         return MAIN.menus.contains(menu);
     }
 
-    public static boolean isDessertMenu(Menu menu) {
+    static boolean isDessertMenu(Menu menu) {
         return DESSERT.menus.contains(menu);
     }
 
-    public static boolean isBeverageMenu(Menu menu) {
+    static boolean isBeverageMenu(Menu menu) {
         return BEVERAGE.menus.contains(menu);
     }
 }
