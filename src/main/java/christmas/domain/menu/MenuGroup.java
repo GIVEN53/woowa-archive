@@ -38,4 +38,8 @@ public enum MenuGroup {
     public static boolean isDessertMenu(Menu menu) {
         return DESSERT.menus.contains(menu);
     }
+
+    public static boolean isBeverageMenu(Menu menu) {
+        return BEVERAGE.menus.contains(menu);
+    }
 }
