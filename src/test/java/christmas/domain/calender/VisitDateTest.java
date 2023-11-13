@@ -8,6 +8,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 class VisitDateTest {
+    private static final String TEST_NAME = "12월 {arguments}일";
+
     static List<Integer> provideWeekdays() {
         return IntStream.rangeClosed(3, 31)
                 .filter(day -> day % 7 != 1 && day % 7 != 2)
@@ -22,7 +24,7 @@ class VisitDateTest {
                 .toList();
     }
 
-    @ParameterizedTest(name = "12월 {arguments}일")
+    @ParameterizedTest(name = TEST_NAME)
     @MethodSource("provideWeekdays")
     void 평일이면_true를_반환한다(int date) {
         // when
@@ -32,7 +34,7 @@ class VisitDateTest {
         assertThat(visitDate.isWeekDay()).isTrue();
     }
 
-    @ParameterizedTest(name = "12월 {arguments}일")
+    @ParameterizedTest(name = TEST_NAME)
     @MethodSource("provideWeekends")
     void 평일이_아니면_false를_반환한다(int date) {
         // when
