@@ -1,6 +1,8 @@
 package christmas.domain.order;
 
 import static christmas.ui.ErrorMessage.INVALID_ORDER;
+import static christmas.ui.ErrorMessage.ORDERED_ONLY_BEVERAGE_MENU;
+import static christmas.ui.ErrorMessage.ORDERED_OVER_MAX_MENU_COUNT;
 
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class Orders {
                 .allMatch(Order::hasBeverageMenu);
 
         if (onlyBeverageMenu) {
-            throw new IllegalArgumentException(INVALID_ORDER.getMessage());
+            throw new IllegalArgumentException(ORDERED_ONLY_BEVERAGE_MENU.getMessage());
         }
     }
 
@@ -39,7 +41,7 @@ public class Orders {
                 .mapToInt(Order::getOrderQuantity)
                 .sum();
         if (totalCount > MAX_MENU_COUNT) {
-            throw new IllegalArgumentException(INVALID_ORDER.getMessage());
+            throw new IllegalArgumentException(String.format(ORDERED_OVER_MAX_MENU_COUNT.getMessage(), MAX_MENU_COUNT));
         }
     }
 }

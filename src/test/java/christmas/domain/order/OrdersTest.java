@@ -1,6 +1,8 @@
 package christmas.domain.order;
 
 import static christmas.ui.ErrorMessage.INVALID_ORDER;
+import static christmas.ui.ErrorMessage.ORDERED_ONLY_BEVERAGE_MENU;
+import static christmas.ui.ErrorMessage.ORDERED_OVER_MAX_MENU_COUNT;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
@@ -30,7 +32,7 @@ class OrdersTest {
         // when & then
         assertThatThrownBy(() -> new Orders(List.of(order1, order2, order3)))
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage(INVALID_ORDER.getMessage());
+                .hasMessage(ORDERED_ONLY_BEVERAGE_MENU.getMessage());
     }
 
     @Test
@@ -44,6 +46,6 @@ class OrdersTest {
         // when & then
         assertThatThrownBy(() -> new Orders(List.of(order1, order2, order3, order4)))
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage(INVALID_ORDER.getMessage());
+                .hasMessage(ORDERED_OVER_MAX_MENU_COUNT.getMessage());
     }
 }
