@@ -42,4 +42,20 @@ public enum Menu {
     public int getPrice() {
         return this.price;
     }
+
+    public boolean isAppetizer() {
+        return MenuGroup.isAppetizerMenu(this);
+    }
+
+    public boolean isMain() {
+        return MenuGroup.isMainMenu(this);
+    }
+
+    public boolean isDessert() {
+        return MenuGroup.isDessertMenu(this);
+    }
+
+    public boolean isBeverage() {
+        return MenuGroup.isBeverageMenu(this);
+    }
 }
