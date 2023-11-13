@@ -4,7 +4,9 @@ import static christmas.domain.calender.EventDateConfig.END_DAY;
 import static christmas.domain.calender.EventDateConfig.MONTH;
 import static christmas.domain.calender.EventDateConfig.START_DAY;
 import static christmas.domain.calender.EventDateConfig.YEAR;
+import static java.time.DayOfWeek.FRIDAY;
 import static java.time.DayOfWeek.MONDAY;
+import static java.time.DayOfWeek.SATURDAY;
 import static java.time.DayOfWeek.SUNDAY;
 import static java.time.DayOfWeek.THURSDAY;
 import static java.time.DayOfWeek.TUESDAY;
@@ -19,6 +21,8 @@ import java.util.stream.IntStream;
 
 public class VisitDate {
     private static final List<DayOfWeek> WEEKDAY = List.of(SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY);
+    private static final List<DayOfWeek> WEEKEND = List.of(FRIDAY, SATURDAY);
+
 
     private static final Map<Integer, VisitDate> DATE_CACHE = new HashMap<>();
 
@@ -46,5 +50,9 @@ public class VisitDate {
 
     public boolean isWeekDay() {
         return WEEKDAY.contains(dayOfWeek);
+    }
+
+    public boolean isWeekend() {
+        return WEEKEND.contains(dayOfWeek);
     }
 }
