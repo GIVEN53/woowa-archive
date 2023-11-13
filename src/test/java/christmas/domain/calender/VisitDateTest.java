@@ -43,4 +43,24 @@ class VisitDateTest {
         // then
         assertThat(visitDate.isWeekDay()).isFalse();
     }
+
+    @ParameterizedTest(name = TEST_NAME)
+    @MethodSource("provideWeekends")
+    void 주말이면_true를_반환한다(int date) {
+        // when
+        VisitDate visitDate = VisitDate.from(date);
+
+        // then
+        assertThat(visitDate.isWeekend()).isTrue();
+    }
+
+    @ParameterizedTest(name = TEST_NAME)
+    @MethodSource("provideWeekdays")
+    void 주말이_아니면_false를_반환한다(int date) {
+        // when
+        VisitDate visitDate = VisitDate.from(date);
+
+        // then
+        assertThat(visitDate.isWeekend()).isFalse();
+    }
 }
