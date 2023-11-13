@@ -22,7 +22,7 @@ import java.util.stream.IntStream;
 public class VisitDate {
     private static final List<DayOfWeek> WEEKDAY = List.of(SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY);
     private static final List<DayOfWeek> WEEKEND = List.of(FRIDAY, SATURDAY);
-
+    private static final List<Integer> STAR_DAYS = List.of(3, 10, 17, 24, 25, 31);
 
     private static final Map<Integer, VisitDate> DATE_CACHE = new HashMap<>();
 
@@ -54,5 +54,9 @@ public class VisitDate {
 
     public boolean isWeekend() {
         return WEEKEND.contains(dayOfWeek);
+    }
+
+    public boolean isStarDay() {
+        return STAR_DAYS.contains(date);
     }
 }
