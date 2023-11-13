@@ -34,4 +34,8 @@ public enum MenuGroup {
     public static boolean isMainMenu(Menu menu) {
         return MAIN.menus.contains(menu);
     }
+
+    public static boolean isDessertMenu(Menu menu) {
+        return DESSERT.menus.contains(menu);
+    }
 }
