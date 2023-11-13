@@ -1,8 +1,7 @@
 package christmas.domain.menu;
 
-import static christmas.ui.ErrorMessage.*;
+import static christmas.ui.ErrorMessage.INVALID_MENU_NAME;
 
-import christmas.ui.ErrorMessage;
 import java.util.Arrays;
 
 public enum Menu {
@@ -34,5 +33,13 @@ public enum Menu {
                 .filter(m -> m.name.equals(name))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(INVALID_MENU_NAME.getMessage()));
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public int getPrice() {
+        return this.price;
     }
 }
