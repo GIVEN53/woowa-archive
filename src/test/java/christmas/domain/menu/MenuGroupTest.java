@@ -57,4 +57,21 @@ class MenuGroupTest {
             assertThat(MenuGroup.isDessertMenu(menu)).isFalse();
         }
     }
+
+    @Nested
+    class 음료_메뉴 {
+        @ParameterizedTest
+        @EnumSource(value = Menu.class, names = {"ZERO_COKE", "RED_WINE", "CHAMPAGNE"})
+        void true를_반환한다(Menu menu) {
+            // when & then
+            assertThat(MenuGroup.isBeverageMenu(menu)).isTrue();
+        }
+
+        @ParameterizedTest
+        @EnumSource(value = Menu.class, names = {"MUSHROOM_SOUP", "SEAFOOD_PASTA", "CHOCO_CAKE"})
+        void false를_반환한다(Menu menu) {
+            // when & then
+            assertThat(MenuGroup.isBeverageMenu(menu)).isFalse();
+        }
+    }
 }
