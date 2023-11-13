@@ -1,10 +1,10 @@
 package christmas.domain.calender;
 
-import static christmas.domain.calender.EventDateConfig.END_DAY;
+import static christmas.domain.calender.EventDateConfig.END_DATE;
 import static christmas.domain.calender.EventDateConfig.MONTH;
-import static christmas.domain.calender.EventDateConfig.START_DAY;
+import static christmas.domain.calender.EventDateConfig.START_DATE;
 import static christmas.domain.calender.EventDateConfig.YEAR;
-import static christmas.ui.ErrorMessage.*;
+import static christmas.ui.ErrorMessage.INVALID_DATE;
 import static java.time.DayOfWeek.FRIDAY;
 import static java.time.DayOfWeek.MONDAY;
 import static java.time.DayOfWeek.SATURDAY;
@@ -13,7 +13,6 @@ import static java.time.DayOfWeek.THURSDAY;
 import static java.time.DayOfWeek.TUESDAY;
 import static java.time.DayOfWeek.WEDNESDAY;
 
-import christmas.ui.ErrorMessage;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -29,7 +28,7 @@ public class VisitDate {
     private static final Map<Integer, VisitDate> DATE_CACHE = new HashMap<>();
 
     static {
-        IntStream.rangeClosed(START_DAY.getValue(), END_DAY.getValue())
+        IntStream.rangeClosed(START_DATE.getValue(), END_DATE.getValue())
                 .mapToObj(day -> LocalDate.of(YEAR.getValue(), MONTH.getValue(), day))
                 .forEach(date -> {
                     int day = date.getDayOfMonth();
@@ -52,7 +51,7 @@ public class VisitDate {
     }
 
     private static void validateDateRange(int date) {
-        if (date < START_DAY.getValue() || date > END_DAY.getValue()) {
+        if (date < START_DATE.getValue() || date > END_DATE.getValue()) {
             throw new IllegalArgumentException(INVALID_DATE.getMessage());
         }
     }

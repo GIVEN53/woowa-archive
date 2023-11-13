@@ -3,8 +3,8 @@ package christmas.domain.calender;
 public enum EventDateConfig {
     YEAR(2023),
     MONTH(12),
-    START_DAY(1),
-    END_DAY(31);
+    START_DATE(1),
+    END_DATE(31);
 
     private final int value;
 
