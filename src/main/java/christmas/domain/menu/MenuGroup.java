@@ -26,4 +26,8 @@ public enum MenuGroup {
     MenuGroup(List<Menu> menus) {
         this.menus = menus;
     }
+
+    public static boolean isAppetizer(Menu menu) {
+        return APPETIZER.menus.contains(menu);
+    }
 }
