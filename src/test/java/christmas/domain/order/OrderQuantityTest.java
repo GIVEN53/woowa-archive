@@ -23,4 +23,13 @@ class OrderQuantityTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(INVALID_ORDER.getMessage());
     }
+
+    @ParameterizedTest
+    @ValueSource(ints = {51, 80, 100})
+    void 주문한_메뉴_개수가_50보다_클_경우_예외가_발생한다(int quantity) {
+        // when & then
+        assertThatThrownBy(() -> new OrderQuantity(quantity))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(INVALID_ORDER.getMessage());
+    }
 }
