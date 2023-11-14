@@ -2,11 +2,12 @@ package christmas.util;
 
 import static christmas.ui.ErrorMessage.INVALID_NUMBER;
 import static christmas.ui.ErrorMessage.INVALID_ORDER;
-import static christmas.util.Delimiter.*;
+import static christmas.util.Delimiter.COMMA;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 class ConverterTest {
@@ -53,6 +54,31 @@ class ConverterTest {
 
         // when & then
         assertThatThrownBy(() -> Converter.convertToListByComma(input))
+                .isExactlyInstanceOf(IllegalArgumentException.class)
+                .hasMessage(INVALID_ORDER.getMessage());
+    }
+
+    @Test
+    void 문자열을_대시로_나누어_맵_엔트리로_변환한다() {
+        // given
+        String input = "초코케이크-2";
+
+        // when
+        Map.Entry<String, Integer> entry = Converter.convertToMapEntryByDash(input);
+
+        // then
+        assertThat(entry.getKey()).isEqualTo("초코케이크");
+        assertThat(entry.getValue()).isEqualTo(2);
+    }
+
+    @Test
+    void 문자열을_대시로_나누어_맵_엔트리로_변환할_수_없을_경우_예외가_발생한다() {
+        // given
+        String invalidDelimiter = ".";
+        String input = "초코케이크" + invalidDelimiter + "2";
+
+        // when & then
+        assertThatThrownBy(() -> Converter.convertToMapEntryByDash(input))
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage(INVALID_ORDER.getMessage());
     }
