@@ -50,4 +50,11 @@ public class Orders {
                 .mapToInt(o -> o.getMenuPrice() * o.getOrderQuantity())
                 .sum();
     }
+
+    public int getDessertMenuCount() {
+        return orders.stream()
+                .filter(Order::hasDessertMenu)
+                .mapToInt(Order::getOrderQuantity)
+                .sum();
+    }
 }

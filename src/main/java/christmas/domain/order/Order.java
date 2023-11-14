@@ -32,4 +32,8 @@ public class Order {
     boolean hasBeverageMenu() {
         return menu.isBeverage();
     }
+
+    boolean hasDessertMenu() {
+        return menu.isDessert();
+    }
 }
