@@ -24,4 +24,16 @@ class ChristmasDiscountTest {
         assertThat(result).isFalse();
     }
 
+    @ParameterizedTest
+    @ValueSource(ints = {1, 4, 9, 14, 18, 23, 25})
+    void 방문날짜가_25일_이하일_경우_true를_반환한다(int day) {
+        // given
+        VisitDate visitDate = VisitDate.from(day);
+
+        // when
+        boolean result = christmasDiscount.isDiscountDate(visitDate);
+
+        // then
+        assertThat(result).isTrue();
+    }
 }
