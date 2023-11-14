@@ -36,4 +36,8 @@ public enum Badge {
     private boolean isNone(Badge badge) {
         return badge == NONE;
     }
+
+    public String getName() {
+        return this.name;
+    }
 }
