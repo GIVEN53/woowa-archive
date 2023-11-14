@@ -7,6 +7,7 @@ public enum ErrorMessage {
     ORDERED_OVER_MAX_MENU_COUNT("메뉴는 한 번에 최대 %d개까지만 주문할 수 있습니다"),
     IS_BLANK("입력 값이 비어있습니다."),
     CONTAIN_SPACE("입력 값에 공백이 포함되어 있습니다."),
+    INVALID_NUMBER("숫자가 아닌 값이 있습니다.")
     ;
 
     private final String message;
