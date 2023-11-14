@@ -1,7 +1,9 @@
-package christmas.domain.discount;
+package christmas.application.discount;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import christmas.application.discount.ChristmasDiscount;
+import christmas.application.discount.Discount;
 import christmas.domain.calender.VisitDate;
 import christmas.domain.order.Order;
 import christmas.domain.order.Orders;

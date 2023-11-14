@@ -1,4 +1,4 @@
-package christmas.domain.discount;
+package christmas.application.discount;
 
 import christmas.domain.calender.VisitDate;
 import christmas.domain.order.Orders;
