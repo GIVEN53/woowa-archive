@@ -1,11 +1,10 @@
 package christmas.domain.discount;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import christmas.domain.calender.VisitDate;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class ChristmasDiscountTest {
@@ -35,5 +34,18 @@ class ChristmasDiscountTest {
 
         // then
         assertThat(result).isTrue();
+    }
+
+    @ParameterizedTest
+    @CsvSource({"1,1000", "3,1200", "10,1900", "19,2800", "25,3400"})
+    void 방문날짜에_따라_할인금액을_반환한다(int date, int expected) {
+        // given
+        VisitDate visitDate = VisitDate.from(date);
+
+        // when
+        int result = christmasDiscount.calculateDiscountAmount(visitDate);
+
+        // then
+        assertThat(result).isEqualTo(expected);
     }
 }
