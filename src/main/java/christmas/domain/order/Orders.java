@@ -57,4 +57,11 @@ public class Orders {
                 .mapToInt(Order::getOrderQuantity)
                 .sum();
     }
+
+    public int getMainMenuCount() {
+        return orders.stream()
+                .filter(Order::hasMainMenu)
+                .mapToInt(Order::getOrderQuantity)
+                .sum();
+    }
 }
