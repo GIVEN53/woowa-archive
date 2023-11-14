@@ -5,11 +5,14 @@ import static christmas.ui.ErrorMessage.INVALID_ORDER;
 import static christmas.util.Delimiter.COMMA;
 import static christmas.util.Delimiter.DASH;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 import org.assertj.core.data.MapEntry;
 
 public class Converter {
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("###,###");
+
     private Converter() {
     }
 
@@ -34,5 +37,9 @@ public class Converter {
             return MapEntry.entry(split[0], convertToInt(split[1]));
         }
         throw new IllegalArgumentException(INVALID_ORDER.getMessage());
+    }
+
+    public static String convertNumberWithComma(final int number) {
+        return DECIMAL_FORMAT.format(number);
     }
 }
