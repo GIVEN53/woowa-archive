@@ -7,6 +7,7 @@ import christmas.domain.order.Order;
 import christmas.domain.order.Orders;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -44,5 +45,19 @@ class WeekdayDiscountTest {
 
         // then
         assertThat(discountAmount).isEqualTo(6069);
+    }
+
+    @Test
+    void 평일이지만_디저트_메뉴가_아니면_할인을_적용하지_않는다() {
+        // given
+        Order order = Order.of("해산물파스타", 1);
+        Orders orders = new Orders(List.of(order));
+        VisitDate visitDate = VisitDate.from(3);
+
+        // when
+        int discountAmount = weekdayDiscount.calculateDiscountAmount(orders, visitDate);
+
+        // then
+        assertThat(discountAmount).isZero();
     }
 }
