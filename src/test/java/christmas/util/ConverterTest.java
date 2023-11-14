@@ -9,6 +9,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class ConverterTest {
     @Test
@@ -81,5 +83,15 @@ class ConverterTest {
         assertThatThrownBy(() -> Converter.convertToMapEntryByDash(input))
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage(INVALID_ORDER.getMessage());
+    }
+
+    @ParameterizedTest(name = "{0}을 천 단위로 콤마 포함 -> {1}")
+    @CsvSource(value = {"1:1", "1000:1,000", "10000:10,000", "100000:100,000", "1000000:1,000,000"}, delimiter = ':')
+    void 숫자를_콤마_포함한_문자열로_변환한다(int number, String expected) {
+        // when
+        String numberWithComma = Converter.convertNumberWithComma(number);
+
+        // then
+        assertThat(numberWithComma).isEqualTo(expected);
     }
 }
