@@ -44,4 +44,10 @@ public class Orders {
             throw new IllegalArgumentException(String.format(ORDERED_OVER_MAX_MENU_COUNT.getMessage(), MAX_MENU_COUNT));
         }
     }
+
+    public int getTotalPrice() {
+        return orders.stream()
+                .mapToInt(o -> o.getMenuPrice() * o.getOrderQuantity())
+                .sum();
+    }
 }
