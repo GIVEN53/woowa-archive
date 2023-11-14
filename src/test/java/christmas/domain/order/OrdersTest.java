@@ -3,6 +3,7 @@ package christmas.domain.order;
 import static christmas.ui.ErrorMessage.INVALID_ORDER;
 import static christmas.ui.ErrorMessage.ORDERED_ONLY_BEVERAGE_MENU;
 import static christmas.ui.ErrorMessage.ORDERED_OVER_MAX_MENU_COUNT;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
@@ -47,5 +48,21 @@ class OrdersTest {
         assertThatThrownBy(() -> new Orders(List.of(order1, order2, order3, order4)))
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage(ORDERED_OVER_MAX_MENU_COUNT.getMessage());
+    }
+
+    @Test
+    void 주문한_메뉴의_총_가격을_반환한다() {
+        // given
+        Order order1 = Order.of("해산물파스타", 1);
+        Order order2 = Order.of("레드와인", 1);
+        Order order3 = Order.of("샴페인", 2);
+        Order order4 = Order.of("티본스테이크", 1);
+        Orders orders = new Orders(List.of(order1, order2, order3, order4));
+
+        // when
+        int totalPrice = orders.getTotalPrice();
+
+        // then
+        assertThat(totalPrice).isEqualTo(200_000);
     }
 }
