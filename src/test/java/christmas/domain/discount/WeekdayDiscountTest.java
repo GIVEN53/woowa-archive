@@ -3,6 +3,10 @@ package christmas.domain.discount;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.domain.calender.VisitDate;
+import christmas.domain.order.Order;
+import christmas.domain.order.Orders;
+import java.util.List;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -33,5 +37,19 @@ class WeekdayDiscountTest {
 
         // then
         assertThat(result).isTrue();
+    }
+
+    @Test
+    void 디저트_메뉴_개수에_따라_할인금액을_반환한다() {
+        // given
+        int dessertCount = 3;
+        Order order = Order.of("초코케이크", dessertCount);
+        Orders orders = new Orders(List.of(order));
+
+        // when
+        int result = weekdayDiscount.calculateDiscountAmount(orders);
+
+        // then
+        assertThat(result).isEqualTo(6069);
     }
 }
