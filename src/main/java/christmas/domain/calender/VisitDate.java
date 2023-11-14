@@ -67,4 +67,8 @@ public class VisitDate {
     public boolean isStarDay() {
         return STAR_DAYS.contains(date);
     }
+
+    public int getDate() {
+        return this.date;
+    }
 }
