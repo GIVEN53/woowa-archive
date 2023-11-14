@@ -3,8 +3,11 @@ package christmas.util;
 import static christmas.ui.ErrorMessage.INVALID_NUMBER;
 import static christmas.ui.ErrorMessage.INVALID_ORDER;
 import static christmas.util.Delimiter.COMMA;
+import static christmas.util.Delimiter.DASH;
 
 import java.util.List;
+import java.util.Map;
+import org.assertj.core.data.MapEntry;
 
 public class Converter {
     private Converter() {
@@ -21,6 +24,14 @@ public class Converter {
     public static List<String> convertToListByComma(final String input) {
         if (input.matches(COMMA.getRegex())) {
             return List.of(input.split(COMMA.getValue()));
+        }
+        throw new IllegalArgumentException(INVALID_ORDER.getMessage());
+    }
+
+    public static Map.Entry<String, Integer> convertToMapEntryByDash(final String input) {
+        if (input.matches(DASH.getRegex())) {
+            String[] split = input.split(DASH.getValue());
+            return MapEntry.entry(split[0], convertToInt(split[1]));
         }
         throw new IllegalArgumentException(INVALID_ORDER.getMessage());
     }
