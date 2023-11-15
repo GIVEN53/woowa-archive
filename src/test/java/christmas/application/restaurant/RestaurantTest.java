@@ -16,6 +16,7 @@ import christmas.domain.order.Orders;
 import christmas.dto.Benefits;
 import christmas.dto.Giveaway;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 class RestaurantTest {
@@ -156,5 +157,20 @@ class RestaurantTest {
         // then
         assertThat(benefits.get(CHRISTMAS_EVENT.getName())).isEqualTo(3100);
         assertThat(benefits.get(WEEKEND_EVENT.getName())).isEqualTo(6069);
+    }
+
+    @Test
+    void 총혜택_금액을_계산한다() {
+        // given
+        Benefits benefits = new Benefits(Map.of(
+                CHRISTMAS_EVENT.getName(), 3100,
+                WEEKEND_EVENT.getName(), 6069
+        ));
+
+        // when
+        int totalBenefit = restaurant.sumTotalBenefit(benefits);
+
+        // then
+        assertThat(totalBenefit).isEqualTo(9169);
     }
 }
