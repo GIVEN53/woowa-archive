@@ -27,9 +27,7 @@ public class EventController {
     public void run() {
         outputView.printStartMessage();
         VisitDate visitDate = getVisitDate();
-        Orders orders = getOrders();
-        outputView.printBenefitPreviewMessage(visitDate.getDate());
-        outputView.printOrderedMenus(orders.getMenuNameAndCount());
+        Orders orders = getOrders(visitDate);
 
         int totalAmountBeforeDiscount = orders.getTotalPrice();
         outputView.printTotalAmountBeforeDiscount(totalAmountBeforeDiscount);
@@ -60,11 +58,14 @@ public class EventController {
         });
     }
 
-    private Orders getOrders() {
+    private Orders getOrders(VisitDate visitDate) {
         return scanWithRetry(() -> {
             String menu = inputView.scanMenuName();
             List<String> menus = Converter.convertToListByComma(menu);
-            return restaurant.order(menus);
+            Orders orders = restaurant.order(menus);
+            outputView.printBenefitPreviewMessage(visitDate.getDate());
+            outputView.printOrderedMenus(orders.getMenuNameAndCount());
+            return orders;
         });
     }
 
