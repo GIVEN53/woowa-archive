@@ -29,4 +29,10 @@ public class OutputView {
         System.out.println(totalAmountBeforeDiscount + "원");
         System.out.println();
     }
+
+    public void printGiveaway(String giveaway, int count) {
+        System.out.println("<증정 메뉴>");
+        System.out.printf("%s %d개\n", giveaway, count);
+        System.out.println();
+    }
 }
