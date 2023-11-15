@@ -16,7 +16,7 @@ public class OutputView {
     }
 
     public void printStartMessage() {
-        System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
+        System.out.printf("안녕하세요! 우테코 식당 %d월 이벤트 플래너입니다.%n", MONTH.getValue());
     }
 
     public void printBenefitPreviewMessage(int date) {
