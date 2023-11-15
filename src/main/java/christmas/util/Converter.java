@@ -1,5 +1,6 @@
 package christmas.util;
 
+import static christmas.ui.ErrorMessage.INVALID_DATE;
 import static christmas.ui.ErrorMessage.INVALID_NUMBER;
 import static christmas.ui.ErrorMessage.INVALID_ORDER;
 import static christmas.util.Delimiter.COMMA;
@@ -20,7 +21,7 @@ public class Converter {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(INVALID_NUMBER.getMessage());
+            throw new IllegalArgumentException(INVALID_DATE.getMessage());
         }
     }
 
