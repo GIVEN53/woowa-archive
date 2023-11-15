@@ -18,6 +18,6 @@ public final class StarDayEvent implements Event {
 
     @Override
     public String getName() {
-        return STAR_DAY_DISCOUNT.getName();
+        return STAR_DAY_EVENT.getName();
     }
 }

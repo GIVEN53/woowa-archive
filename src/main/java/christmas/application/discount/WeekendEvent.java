@@ -19,6 +19,6 @@ public final class WeekendEvent implements Event {
 
     @Override
     public String getName() {
-        return WEEKEND_DISCOUNT.getName();
+        return WEEKEND_EVENT.getName();
     }
 }

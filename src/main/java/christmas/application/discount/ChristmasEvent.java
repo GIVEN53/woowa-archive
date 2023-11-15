@@ -21,6 +21,6 @@ public final class ChristmasEvent implements Event {
 
     @Override
     public String getName() {
-        return CHRISTMAS_DISCOUNT.getName();
+        return CHRISTMAS_EVENT.getName();
     }
 }
