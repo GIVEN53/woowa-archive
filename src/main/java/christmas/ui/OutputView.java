@@ -3,6 +3,7 @@ package christmas.ui;
 import static christmas.domain.calender.EventDateConfig.MONTH;
 
 import christmas.dto.Benefits;
+import christmas.util.Converter;
 import java.util.Map;
 
 public class OutputView {
@@ -25,9 +26,9 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printTotalAmountBeforeDiscount(String totalAmountBeforeDiscount) {
+    public void printTotalAmountBeforeDiscount(int totalAmountBeforeDiscount) {
         System.out.println("<할인 전 총주문 금액>");
-        System.out.println(totalAmountBeforeDiscount + "원");
+        System.out.println(Converter.convertNumberWithComma(totalAmountBeforeDiscount) + "원");
         System.out.println();
     }
 
@@ -39,7 +40,13 @@ public class OutputView {
 
     public void printBenefits(Benefits benefits) {
         System.out.println("<혜택 내역>");
-        benefits.benefits().forEach((k, v)-> System.out.printf("%s: -%d원\n", k, v));
+        benefits.benefits().forEach((k, v)-> System.out.printf("%s: -%s원\n", k, Converter.convertNumberWithComma(v)));
+        System.out.println();
+    }
+
+    public void printTotalDiscountAmount(int totalBenefitAmount) {
+        System.out.println("<총혜택 금액>");
+        System.out.printf("-%s원%n", Converter.convertNumberWithComma(totalBenefitAmount)));
         System.out.println();
     }
 }
