@@ -1,9 +1,7 @@
 package christmas.application.restaurant;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
 
-import christmas.application.discount.Event;
 import christmas.domain.menu.Menu;
 import christmas.domain.order.Order;
 import christmas.domain.order.Orders;
@@ -12,7 +10,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 class RestaurantTest {
-    private final Restaurant restaurant = new Restaurant(List.of(mock(Event.class)));
+    private final Restaurant restaurant = new Restaurant();
 
     @Test
     void 메뉴를_전달하면_주문을_생성한다() {
