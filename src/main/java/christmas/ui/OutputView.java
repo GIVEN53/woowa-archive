@@ -55,4 +55,9 @@ public class OutputView {
         System.out.println(Converter.convertNumberWithComma(totalAmountAfterDiscount) + "원");
         System.out.println();
     }
+
+    public void printBadge(String badgeName) {
+        System.out.println("<12월 이벤트 배지>");
+        System.out.println(badgeName);
+    }
 }
