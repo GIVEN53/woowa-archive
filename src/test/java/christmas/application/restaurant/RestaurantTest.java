@@ -2,7 +2,10 @@ package christmas.application.restaurant;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import christmas.domain.menu.Menu;
+import christmas.domain.order.Order;
 import christmas.domain.order.Orders;
+import christmas.dto.Giveaway;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -23,5 +26,31 @@ class RestaurantTest {
         // then
         assertThat(orders.getMainMenuCount()).isEqualTo(2);
         assertThat(orders.getDessertMenuCount()).isEqualTo(1);
+    }
+
+    @Test
+    void 할인_전_주문금액이_12만원_이상이면_증정품을_준다() {
+        // given
+        Order order = Order.of("티본스테이크", 3);
+        Orders orders = new Orders(List.of(order));
+
+        // when
+        Giveaway giveaway = restaurant.presentGiveaway(orders);
+
+        // then
+        assertThat(giveaway.name()).isEqualTo(Menu.CHAMPAGNE.getName());
+    }
+
+    @Test
+    void 할인_전_주문금액이_12만원보다_적으면_증정품을_주지_않는다() {
+        // given
+        Order order = Order.of("티본스테이크", 1);
+        Orders orders = new Orders(List.of(order));
+
+        // when
+        Giveaway giveaway = restaurant.presentGiveaway(orders);
+
+        // then
+        assertThat(giveaway.name()).isEqualTo("없음");
     }
 }
