@@ -1,5 +1,7 @@
 package christmas.domain.badge;
 
+import static java.util.Comparator.comparingInt;
+
 import java.util.Arrays;
 
 public enum Badge {
@@ -9,10 +11,10 @@ public enum Badge {
     STAR("별", 5_000, 3),
     NONE("없음", 0, 4);
 
+    private static final Badge[] BADGES = Badge.values();
     private final String name;
     private final int requiredBenefitAmount;
     private final int priority;
-    private static final Badge[] BADGES = Badge.values();
 
     Badge(String name, int requiredBenefitAmount, int priority) {
         this.name = name;
@@ -22,7 +24,7 @@ public enum Badge {
 
     public static Badge findByBenefitAmount(int benefitAmount) {
         return Arrays.stream(BADGES)
-                .sorted((o1, o2) -> o2.priority - o1.priority)
+                .sorted(comparingInt(o -> o.priority))
                 .filter(badge -> !badge.isNone(badge))
                 .filter(badge -> badge.isSatisfied(benefitAmount))
                 .findFirst()
