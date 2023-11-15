@@ -14,6 +14,7 @@ import christmas.dto.Giveaway;
 import christmas.util.Converter;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class Restaurant {
     private static final int MIN_GIVEAWAY_EVENT_AMOUNT = 120_000;
@@ -33,12 +34,12 @@ public class Restaurant {
                 .collect(collectingAndThen(toList(), Orders::new));
     }
 
-    public Giveaway presentGiveaway(Orders orders) {
+    public Optional<Giveaway> presentGiveaway(Orders orders) {
         int totalAmountBeforeDiscount = orders.getTotalPrice();
         if (totalAmountBeforeDiscount >= MIN_GIVEAWAY_EVENT_AMOUNT) {
-            return Giveaway.from(GIVEAWAY, GIVEAWAY_COUNT);
+            return Optional.of(Giveaway.from(GIVEAWAY, GIVEAWAY_COUNT));
         }
-        return Giveaway.none();
+        return Optional.empty();
     }
 
     public Benefits calculateBenefit(Orders orders, VisitDate visitDate) {

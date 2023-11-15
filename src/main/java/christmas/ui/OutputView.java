@@ -3,10 +3,13 @@ package christmas.ui;
 import static christmas.domain.calender.EventDateConfig.MONTH;
 
 import christmas.dto.Benefits;
+import christmas.dto.Giveaway;
 import christmas.util.Converter;
 import java.util.Map;
+import java.util.Optional;
 
 public class OutputView {
+    private static final String  NONE = "없음";
     public void printErrorMessage(String message) {
         System.out.println(message);
     }
@@ -32,21 +35,32 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printGiveaway(String giveaway, int count) {
+    public void printGiveaway(Optional<Giveaway> optionalGiveaway) {
         System.out.println("<증정 메뉴>");
-        System.out.printf("%s %d개\n", giveaway, count);
+        if (optionalGiveaway.isPresent()) {
+            Giveaway giveaway = optionalGiveaway.get();
+            System.out.printf("%s %d개%n",  giveaway.name(), giveaway.count());
+            System.out.println();
+            return;
+        }
+        System.out.println(NONE);
         System.out.println();
     }
 
     public void printBenefits(Benefits benefits) {
         System.out.println("<혜택 내역>");
+        if (benefits.isEmpty()) {
+            System.out.println(NONE);
+            System.out.println();
+            return;
+        }
         benefits.benefits().forEach((k, v)-> System.out.printf("%s: -%s원\n", k, Converter.convertNumberWithComma(v)));
         System.out.println();
     }
 
     public void printTotalDiscountAmount(int totalBenefitAmount) {
         System.out.println("<총혜택 금액>");
-        System.out.printf("-%s원%n", Converter.convertNumberWithComma(totalBenefitAmount)));
+        System.out.printf("-%s원%n", Converter.convertNumberWithComma(totalBenefitAmount));
         System.out.println();
     }
 

@@ -1,11 +1,13 @@
 package christmas.application.restaurant;
 
-import static christmas.application.discount.EventName.*;
+import static christmas.application.discount.EventName.CHRISTMAS_EVENT;
+import static christmas.application.discount.EventName.STAR_DAY_EVENT;
+import static christmas.application.discount.EventName.WEEKDAY_EVENT;
+import static christmas.application.discount.EventName.WEEKEND_EVENT;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.application.discount.ChristmasEvent;
 import christmas.application.discount.Event;
-import christmas.application.discount.EventName;
 import christmas.application.discount.StarDayEvent;
 import christmas.application.discount.WeekdayEvent;
 import christmas.application.discount.WeekendEvent;
@@ -17,6 +19,7 @@ import christmas.dto.Benefits;
 import christmas.dto.Giveaway;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 class RestaurantTest {
@@ -51,9 +54,11 @@ class RestaurantTest {
         Orders orders = new Orders(List.of(order));
 
         // when
-        Giveaway giveaway = restaurant.presentGiveaway(orders);
+        Optional<Giveaway> optionalGiveaway = restaurant.presentGiveaway(orders);
 
         // then
+        assertThat(optionalGiveaway.isPresent()).isTrue();
+        Giveaway giveaway = optionalGiveaway.get();
         assertThat(giveaway.name()).isEqualTo(Menu.CHAMPAGNE.getName());
     }
 
@@ -64,10 +69,10 @@ class RestaurantTest {
         Orders orders = new Orders(List.of(order));
 
         // when
-        Giveaway giveaway = restaurant.presentGiveaway(orders);
+        Optional<Giveaway> optionalGiveaway = restaurant.presentGiveaway(orders);
 
         // then
-        assertThat(giveaway.name()).isEqualTo("없음");
+        assertThat(optionalGiveaway.isEmpty()).isTrue();
     }
 
     @Test
