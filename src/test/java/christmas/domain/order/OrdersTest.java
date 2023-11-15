@@ -48,7 +48,7 @@ class OrdersTest {
         // when & then
         assertThatThrownBy(() -> new Orders(List.of(order1, order2, order3, order4)))
                 .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage(ORDERED_OVER_MAX_MENU_COUNT.getMessage());
+                .hasMessage(String.format(ORDERED_OVER_MAX_MENU_COUNT.getMessage(), 20));
     }
 
     @Test
