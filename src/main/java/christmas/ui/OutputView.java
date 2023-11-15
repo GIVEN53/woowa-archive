@@ -23,4 +23,10 @@ public class OutputView {
         orderedMenus.forEach((k, v) -> System.out.printf("%s %d개\n", k, v));
         System.out.println();
     }
+
+    public void printTotalAmountBeforeDiscount(String totalAmountBeforeDiscount) {
+        System.out.println("<할인 전 총주문 금액>");
+        System.out.println(totalAmountBeforeDiscount + "원");
+        System.out.println();
+    }
 }
