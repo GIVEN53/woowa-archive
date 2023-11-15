@@ -45,8 +45,7 @@ public class EventController {
 
         outputView.printTotalAmountAfterDiscount(totalAmountAfterDiscount);
 
-        Badge badge = Badge.findByBenefitAmount(totalBenefitAmount);
-        outputView.printBadge(badge.getName());
+        notifyBadge(totalBenefitAmount);
     }
 
     private VisitDate getVisitDate() {
@@ -81,5 +80,10 @@ public class EventController {
         int totalAmountBeforeDiscount = orders.getTotalPrice();
         outputView.printTotalAmountBeforeDiscount(totalAmountBeforeDiscount);
         return totalAmountBeforeDiscount;
+    }
+
+    private void notifyBadge(int totalBenefitAmount) {
+        Badge badge = Badge.findByBenefitAmount(totalBenefitAmount);
+        outputView.printBadge(badge.getName());
     }
 }
