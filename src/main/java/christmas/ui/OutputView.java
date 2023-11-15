@@ -2,6 +2,8 @@ package christmas.ui;
 
 import static christmas.domain.calender.EventDateConfig.MONTH;
 
+import java.util.Map;
+
 public class OutputView {
     public void printErrorMessage(String message) {
         System.out.println(message);
@@ -13,6 +15,12 @@ public class OutputView {
 
     public void printBenefitPreviewMessage(int date) {
         System.out.printf("%d월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n", MONTH.getValue(), date);
+        System.out.println();
+    }
+
+    public void printOrderedMenus(Map<String, Integer> orderedMenus) {
+        System.out.println("<주문 메뉴>");
+        orderedMenus.forEach((k, v) -> System.out.printf("%s %d개\n", k, v));
         System.out.println();
     }
 }
