@@ -25,8 +25,7 @@ public class EventController {
 
     public void run() {
         outputView.printStartMessage();
-        String date = inputView.scanVisitDate();
-        VisitDate visitDate = VisitDate.from(Converter.convertToInt(date));
+        VisitDate visitDate = getVisitDate();
 
         String menu = inputView.scanMenuName();
         List<String> menus = Converter.convertToListByComma(menu);
@@ -55,5 +54,10 @@ public class EventController {
 
         Badge badge = Badge.findByBenefitAmount(totalBenefitAmount);
         outputView.printBadge(badge.getName());
+    }
+
+    private VisitDate getVisitDate() {
+        String date = inputView.scanVisitDate();
+        return VisitDate.from(Converter.convertToInt(date));
     }
 }
