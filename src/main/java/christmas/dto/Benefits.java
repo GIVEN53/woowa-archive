@@ -11,8 +11,8 @@ public record Benefits(Map<String, Integer> benefits) {
         return benefits.get(eventName);
     }
 
-    public int size() {
-        return benefits.size();
+    public boolean isEmpty() {
+        return benefits.isEmpty();
     }
 
     public void put(Giveaway giveaway) {
