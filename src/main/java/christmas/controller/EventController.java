@@ -28,9 +28,7 @@ public class EventController {
         outputView.printStartMessage();
         VisitDate visitDate = getVisitDate();
         Orders orders = getOrders(visitDate);
-
-        int totalAmountBeforeDiscount = orders.getTotalPrice();
-        outputView.printTotalAmountBeforeDiscount(totalAmountBeforeDiscount);
+        int totalAmountBeforeDiscount = getTotalAmountBeforeDiscount(orders);
         Optional<Giveaway> optionalGiveaway = restaurant.presentGiveaway(orders);
         outputView.printGiveaway(optionalGiveaway);
         Benefits benefits = restaurant.calculateBenefit(orders, visitDate);
@@ -77,5 +75,11 @@ public class EventController {
                 outputView.printErrorMessage(e.getMessage());
             }
         }
+    }
+
+    private int getTotalAmountBeforeDiscount(Orders orders) {
+        int totalAmountBeforeDiscount = orders.getTotalPrice();
+        outputView.printTotalAmountBeforeDiscount(totalAmountBeforeDiscount);
+        return totalAmountBeforeDiscount;
     }
 }
