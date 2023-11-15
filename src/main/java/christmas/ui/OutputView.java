@@ -49,4 +49,10 @@ public class OutputView {
         System.out.printf("-%s원%n", Converter.convertNumberWithComma(totalBenefitAmount)));
         System.out.println();
     }
+
+    public void printTotalAmountAfterDiscount(int totalAmountAfterDiscount) {
+        System.out.println("<할인 후 예상 결제 금액>");
+        System.out.println(Converter.convertNumberWithComma(totalAmountAfterDiscount) + "원");
+        System.out.println();
+    }
 }
