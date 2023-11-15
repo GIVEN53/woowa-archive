@@ -2,8 +2,6 @@ package christmas.application.discount;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.application.discount.Discount;
-import christmas.application.discount.StarDayDiscount;
 import christmas.domain.calender.VisitDate;
 import christmas.domain.order.Order;
 import christmas.domain.order.Orders;
@@ -12,8 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class StarDayDiscountTest {
-    private final Discount starDayDiscount = new StarDayDiscount();
+class StarDayEventTest {
+    private final Event starDayEvent = new StarDayEvent();
     private Orders orders;
 
     @BeforeEach
@@ -29,7 +27,7 @@ class StarDayDiscountTest {
         VisitDate visitDate = VisitDate.from(date);
 
         // when
-        int discountAmount = starDayDiscount.calculateDiscountAmount(orders, visitDate);
+        int discountAmount = starDayEvent.applyDiscount(orders, visitDate);
 
         // then
         assertThat(discountAmount).isZero();
@@ -42,7 +40,7 @@ class StarDayDiscountTest {
         VisitDate visitDate = VisitDate.from(date);
 
         // when
-        int discountAmount = starDayDiscount.calculateDiscountAmount(orders, visitDate);
+        int discountAmount = starDayEvent.applyDiscount(orders, visitDate);
 
         // then
         assertThat(discountAmount).isEqualTo(1000);
