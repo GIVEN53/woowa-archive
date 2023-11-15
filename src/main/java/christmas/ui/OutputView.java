@@ -2,6 +2,7 @@ package christmas.ui;
 
 import static christmas.domain.calender.EventDateConfig.MONTH;
 
+import christmas.dto.Benefits;
 import java.util.Map;
 
 public class OutputView {
@@ -33,6 +34,12 @@ public class OutputView {
     public void printGiveaway(String giveaway, int count) {
         System.out.println("<증정 메뉴>");
         System.out.printf("%s %d개\n", giveaway, count);
+        System.out.println();
+    }
+
+    public void printBenefits(Benefits benefits) {
+        System.out.println("<혜택 내역>");
+        benefits.benefits().forEach((k, v)-> System.out.printf("%s: -%d원\n", k, v));
         System.out.println();
     }
 }
