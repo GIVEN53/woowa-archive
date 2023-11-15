@@ -14,4 +14,11 @@ public record Benefits(Map<String, Integer> benefits) {
     public int size() {
         return benefits.size();
     }
+
+    public void put(Giveaway giveaway) {
+        if (giveaway.isNoGiveaway()) {
+            return;
+        }
+        benefits.put(giveaway.name(), giveaway.price());
+    }
 }
