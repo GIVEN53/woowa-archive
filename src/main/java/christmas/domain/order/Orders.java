@@ -3,8 +3,11 @@ package christmas.domain.order;
 import static christmas.ui.ErrorMessage.INVALID_ORDER;
 import static christmas.ui.ErrorMessage.ORDERED_ONLY_BEVERAGE_MENU;
 import static christmas.ui.ErrorMessage.ORDERED_OVER_MAX_MENU_COUNT;
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.toMap;
 
 import java.util.List;
+import java.util.Map;
 
 public class Orders {
     private static final int MAX_MENU_COUNT = 20;
@@ -63,5 +66,13 @@ public class Orders {
                 .filter(Order::hasMainMenu)
                 .mapToInt(Order::getOrderQuantity)
                 .sum();
+    }
+
+    public Map<String, Integer> getMenuNameAndCount() {
+        return orders.stream()
+                .collect(collectingAndThen(
+                        toMap(Order::getMenuName, Order::getOrderQuantity, Integer::sum),
+                        Map::copyOf)
+                );
     }
 }
