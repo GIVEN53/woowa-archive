@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
 import christmas.application.discount.Event;
+import christmas.domain.badge.Badge;
 import christmas.domain.calender.VisitDate;
 import christmas.domain.menu.Menu;
 import christmas.domain.order.Order;
@@ -34,7 +35,6 @@ public class Restaurant {
 
     public Giveaway presentGiveaway(Orders orders) {
         int totalAmountBeforeDiscount = orders.getTotalPrice();
-
         if (totalAmountBeforeDiscount >= MIN_GIVEAWAY_EVENT_AMOUNT) {
             return Giveaway.from(GIVEAWAY);
         }
@@ -52,5 +52,11 @@ public class Restaurant {
                         toMap(Map.Entry::getKey, Map.Entry::getValue, Integer::sum),
                         Benefits::new)
                 );
+    }
+
+    public int sumTotalBenefit(Benefits benefits) {
+        return benefits.benefits().keySet().stream()
+                .mapToInt(benefits::get)
+                .sum();
     }
 }
