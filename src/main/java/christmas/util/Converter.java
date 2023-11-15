@@ -1,7 +1,6 @@
 package christmas.util;
 
 import static christmas.ui.ErrorMessage.INVALID_DATE;
-import static christmas.ui.ErrorMessage.INVALID_NUMBER;
 import static christmas.ui.ErrorMessage.INVALID_ORDER;
 import static christmas.util.Delimiter.COMMA;
 import static christmas.util.Delimiter.DASH;

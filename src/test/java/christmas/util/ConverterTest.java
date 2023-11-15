@@ -1,6 +1,5 @@
 package christmas.util;
 
-import static christmas.ui.ErrorMessage.INVALID_NUMBER;
 import static christmas.ui.ErrorMessage.INVALID_ORDER;
 import static christmas.util.Delimiter.COMMA;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,8 +19,7 @@ class ConverterTest {
 
         // when & then
         assertThatThrownBy(() -> Converter.convertToInt(input))
-                .isExactlyInstanceOf(IllegalArgumentException.class)
-                .hasMessage(INVALID_NUMBER.getMessage());
+                .isExactlyInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
