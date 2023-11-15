@@ -11,6 +11,7 @@ import christmas.ui.OutputView;
 import christmas.util.Converter;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public class EventController {
     private final InputView inputView;
@@ -53,13 +54,27 @@ public class EventController {
     }
 
     private VisitDate getVisitDate() {
-        String date = inputView.scanVisitDate();
-        return VisitDate.from(Converter.convertToInt(date));
+        return scanWithRetry(() -> {
+            String date = inputView.scanVisitDate();
+            return VisitDate.from(Converter.convertToInt(date));
+        });
     }
 
     private Orders getOrders() {
-        String menu = inputView.scanMenuName();
-        List<String> menus = Converter.convertToListByComma(menu);
-        return restaurant.order(menus);
+        return scanWithRetry(() -> {
+            String menu = inputView.scanMenuName();
+            List<String> menus = Converter.convertToListByComma(menu);
+            return restaurant.order(menus);
+        });
+    }
+
+    private <T> T scanWithRetry(final Supplier<T> supplier) {
+        while (true) {
+            try {
+                return supplier.get();
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
     }
 }
