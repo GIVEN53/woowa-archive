@@ -10,14 +10,14 @@ import org.junit.jupiter.params.provider.MethodSource;
 class BadgeTest {
     static Stream<Arguments> provideBadgeAndBenefitAmount() {
         return Stream.of(
-            Arguments.of(Badge.NONE, 0),
-            Arguments.of(Badge.NONE, 4_999),
-            Arguments.of(Badge.STAR, 5_000),
-            Arguments.of(Badge.STAR, 9_999),
-            Arguments.of(Badge.TREE, 10_000),
-            Arguments.of(Badge.TREE, 19_999),
-            Arguments.of(Badge.SANTA, 20_000),
-            Arguments.of(Badge.SANTA, 100_000)
+                Arguments.of(Badge.NONE, 0),
+                Arguments.of(Badge.NONE, 4_999),
+                Arguments.of(Badge.STAR, 5_000),
+                Arguments.of(Badge.STAR, 9_999),
+                Arguments.of(Badge.TREE, 10_000),
+                Arguments.of(Badge.TREE, 19_999),
+                Arguments.of(Badge.SANTA, 20_000),
+                Arguments.of(Badge.SANTA, 100_000)
         );
     }
 

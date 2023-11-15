@@ -1,6 +1,6 @@
 package christmas.application.discount;
 
-import static christmas.application.discount.EventName.*;
+import static christmas.application.discount.EventName.CHRISTMAS_EVENT;
 
 import christmas.domain.calender.VisitDate;
 import christmas.domain.order.Orders;

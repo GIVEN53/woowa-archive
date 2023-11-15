@@ -9,7 +9,8 @@ import java.util.Map;
 import java.util.Optional;
 
 public class OutputView {
-    private static final String  NONE = "없음";
+    private static final String NONE = "없음";
+
     public void printErrorMessage(String message) {
         System.out.println(message);
     }
@@ -44,7 +45,7 @@ public class OutputView {
     private String getGiveaway(Optional<Giveaway> optionalGiveaway) {
         if (optionalGiveaway.isPresent()) {
             Giveaway giveaway = optionalGiveaway.get();
-            return String.format("%s %d개",  giveaway.name(), giveaway.count());
+            return String.format("%s %d개", giveaway.name(), giveaway.count());
         }
         return NONE;
     }
@@ -56,7 +57,7 @@ public class OutputView {
             System.out.println();
             return;
         }
-        benefits.benefits().forEach((k, v)-> System.out.printf("%s: -%s원\n", k, Converter.convertNumberWithComma(v)));
+        benefits.benefits().forEach((k, v) -> System.out.printf("%s: -%s원\n", k, Converter.convertNumberWithComma(v)));
         System.out.println();
     }
 
