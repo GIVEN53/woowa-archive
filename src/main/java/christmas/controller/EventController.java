@@ -29,22 +29,7 @@ public class EventController {
         VisitDate visitDate = getVisitDate();
         Orders orders = getOrders(visitDate);
         int totalAmountBeforeDiscount = getTotalAmountBeforeDiscount(orders);
-        Optional<Giveaway> optionalGiveaway = restaurant.presentGiveaway(orders);
-        outputView.printGiveaway(optionalGiveaway);
-        Benefits benefits = restaurant.calculateBenefit(orders, visitDate);
-        int totalBenefitAmount = restaurant.sumTotalBenefit(benefits);
-        int totalAmountAfterDiscount = totalAmountBeforeDiscount - totalBenefitAmount;
-        if (optionalGiveaway.isPresent()) {
-            Giveaway giveaway = optionalGiveaway.get();
-            benefits.put(giveaway);
-            totalBenefitAmount += giveaway.price();
-        }
-        outputView.printBenefits(benefits);
-
-        outputView.printTotalDiscountAmount(totalBenefitAmount);
-
-        outputView.printTotalAmountAfterDiscount(totalAmountAfterDiscount);
-
+        int totalBenefitAmount = getTotalBenefitAmount(visitDate, orders, totalAmountBeforeDiscount);
         notifyBadge(totalBenefitAmount);
     }
 
@@ -80,6 +65,38 @@ public class EventController {
         int totalAmountBeforeDiscount = orders.getTotalPrice();
         outputView.printTotalAmountBeforeDiscount(totalAmountBeforeDiscount);
         return totalAmountBeforeDiscount;
+    }
+
+    private int getTotalBenefitAmount(VisitDate visitDate, Orders orders, int totalAmountBeforeDiscount) {
+        Optional<Giveaway> optionalGiveaway = getOptionalGiveaway(orders);
+        Benefits benefits = restaurant.calculateBenefit(orders, visitDate);
+        int totalBenefitAmount = restaurant.sumTotalBenefit(benefits);
+        int totalAmountAfterDiscount = totalAmountBeforeDiscount - totalBenefitAmount;
+        totalBenefitAmount = applyGiveawayAndGetTotalBenefitAmount(optionalGiveaway, benefits, totalBenefitAmount);
+        printResult(benefits, totalBenefitAmount, totalAmountAfterDiscount);
+        return totalBenefitAmount;
+    }
+
+    private Optional<Giveaway> getOptionalGiveaway(Orders orders) {
+        Optional<Giveaway> optionalGiveaway = restaurant.presentGiveaway(orders);
+        outputView.printGiveaway(optionalGiveaway);
+        return optionalGiveaway;
+    }
+
+    private static int applyGiveawayAndGetTotalBenefitAmount(Optional<Giveaway> optionalGiveaway, Benefits benefits,
+                                                             int totalBenefitAmount) {
+        if (optionalGiveaway.isPresent()) {
+            Giveaway giveaway = optionalGiveaway.get();
+            benefits.put(giveaway);
+            totalBenefitAmount += giveaway.price();
+        }
+        return totalBenefitAmount;
+    }
+
+    private void printResult(Benefits benefits, int totalBenefitAmount, int totalAmountAfterDiscount) {
+        outputView.printBenefits(benefits);
+        outputView.printTotalDiscountAmount(totalBenefitAmount);
+        outputView.printTotalAmountAfterDiscount(totalAmountAfterDiscount);
     }
 
     private void notifyBadge(int totalBenefitAmount) {

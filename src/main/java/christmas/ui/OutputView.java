@@ -37,14 +37,16 @@ public class OutputView {
 
     public void printGiveaway(Optional<Giveaway> optionalGiveaway) {
         System.out.println("<증정 메뉴>");
+        System.out.println(getGiveaway(optionalGiveaway));
+        System.out.println();
+    }
+
+    private String getGiveaway(Optional<Giveaway> optionalGiveaway) {
         if (optionalGiveaway.isPresent()) {
             Giveaway giveaway = optionalGiveaway.get();
-            System.out.printf("%s %d개%n",  giveaway.name(), giveaway.count());
-            System.out.println();
-            return;
+            return String.format("%s %d개",  giveaway.name(), giveaway.count());
         }
-        System.out.println(NONE);
-        System.out.println();
+        return NONE;
     }
 
     public void printBenefits(Benefits benefits) {
@@ -60,8 +62,15 @@ public class OutputView {
 
     public void printTotalDiscountAmount(int totalBenefitAmount) {
         System.out.println("<총혜택 금액>");
-        System.out.printf("-%s원%n", Converter.convertNumberWithComma(totalBenefitAmount));
+        System.out.println(getTotalBenefitAmountFormat(totalBenefitAmount));
         System.out.println();
+    }
+
+    private String getTotalBenefitAmountFormat(int totalBenefitAmount) {
+        if (totalBenefitAmount == 0) {
+            return String.format("%s원", Converter.convertNumberWithComma(totalBenefitAmount));
+        }
+        return String.format("-%s원%n", Converter.convertNumberWithComma(totalBenefitAmount));
     }
 
     public void printTotalAmountAfterDiscount(int totalAmountAfterDiscount) {
