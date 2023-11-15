@@ -7,6 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 class OrdersTest {
@@ -64,5 +65,24 @@ class OrdersTest {
 
         // then
         assertThat(totalPrice).isEqualTo(200_000);
+    }
+
+    @Test
+    void 주문을_맵으로_반환한다() {
+        // given
+        Order order1 = Order.of("해산물파스타", 1);
+        Order order2 = Order.of("레드와인", 1);
+        Order order3 = Order.of("샴페인", 2);
+        Orders orders = new Orders(List.of(order1, order2, order3));
+
+        // when
+        Map<String, Integer> menuNameAndCount = orders.getMenuNameAndCount();
+
+        // then
+        assertThat(menuNameAndCount).containsExactlyInAnyOrderEntriesOf(Map.of(
+                "해산물파스타", 1,
+                "레드와인", 1,
+                "샴페인", 2
+        ));
     }
 }
