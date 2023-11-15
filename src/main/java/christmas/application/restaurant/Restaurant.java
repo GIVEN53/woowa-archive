@@ -5,7 +5,6 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
 import christmas.application.discount.Event;
-import christmas.domain.badge.Badge;
 import christmas.domain.calender.VisitDate;
 import christmas.domain.menu.Menu;
 import christmas.domain.order.Order;
@@ -19,6 +18,7 @@ import java.util.Map;
 public class Restaurant {
     private static final int MIN_GIVEAWAY_EVENT_AMOUNT = 120_000;
     private static final Menu GIVEAWAY = Menu.CHAMPAGNE;
+    private static final int GIVEAWAY_COUNT = 1;
     private static final int MIN_EVENT_AMOUNT = 10_000;
     private final List<Event> events;
 
@@ -36,9 +36,9 @@ public class Restaurant {
     public Giveaway presentGiveaway(Orders orders) {
         int totalAmountBeforeDiscount = orders.getTotalPrice();
         if (totalAmountBeforeDiscount >= MIN_GIVEAWAY_EVENT_AMOUNT) {
-            return Giveaway.from(GIVEAWAY);
+            return Giveaway.from(GIVEAWAY, GIVEAWAY_COUNT);
         }
-        return Giveaway.noGiveaway();
+        return Giveaway.none();
     }
 
     public Benefits calculateBenefit(Orders orders, VisitDate visitDate) {
