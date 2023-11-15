@@ -16,9 +16,6 @@ public record Benefits(Map<String, Integer> benefits) {
     }
 
     public void put(Giveaway giveaway) {
-        if (giveaway.isNoGiveaway()) {
-            return;
-        }
         benefits.put(giveaway.name(), giveaway.price());
     }
 }
