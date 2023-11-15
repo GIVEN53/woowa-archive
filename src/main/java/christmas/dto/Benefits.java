@@ -1,5 +1,7 @@
 package christmas.dto;
 
+import static christmas.application.discount.EventName.GIVEAWAY_EVENT;
+
 import java.util.Map;
 
 public record Benefits(Map<String, Integer> benefits) {
@@ -16,6 +18,6 @@ public record Benefits(Map<String, Integer> benefits) {
     }
 
     public void put(Giveaway giveaway) {
-        benefits.put(giveaway.name(), giveaway.price());
+        benefits.put(GIVEAWAY_EVENT.getName(), giveaway.price());
     }
 }
