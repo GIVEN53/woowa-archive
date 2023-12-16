@@ -4,8 +4,6 @@ import static oncall.ui.ErrorMessage.INVALID_NICKNAME_SIZE;
 
 public class Employee {
     private String nickname;
-    private boolean weekdayShift;
-    private boolean weekendShift;
 
     public Employee(String nickname) {
         validateNicknameSize(nickname);
@@ -27,6 +25,11 @@ public class Employee {
             return this.nickname.equals(employee.nickname);
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return nickname.hashCode();
     }
 
     public String getNickname() {
