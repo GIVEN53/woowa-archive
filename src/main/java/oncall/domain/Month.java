@@ -1,5 +1,8 @@
 package oncall.domain;
 
+import static oncall.ui.ErrorMessage.INVALID_MONTH;
+
+import java.util.Arrays;
 import java.util.List;
 
 public enum Month {
@@ -16,6 +19,7 @@ public enum Month {
     NOVEMBER(11, 30, List.of()),
     DECEMBER(12, 31, List.of(25));
 
+    private static final Month[] MONTHS = values();
     private final int month;
     private final int days;
     private final List<Integer> holidays;
@@ -24,6 +28,13 @@ public enum Month {
         this.month = month;
         this.days = days;
         this.holidays = holidays;
+    }
+
+    public static Month from(int month) {
+        return Arrays.stream(MONTHS)
+                .filter(m -> m.getMonth() == month)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(INVALID_MONTH.getMessage()));
     }
 
     public int getMonth() {
