@@ -36,4 +36,8 @@ public class Employees {
             throw new IllegalArgumentException(DUPLICATED_EMPLOYEE.getMessage());
         }
     }
+
+    public String getNicknameByIndex(int index) {
+        return employees.get(index % employees.size()).getNickname();
+    }
 }
