@@ -4,6 +4,7 @@ import static java.util.stream.Collectors.collectingAndThen;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import oncall.application.ShiftAssignmentService;
 import oncall.domain.DayOfWeek;
@@ -28,31 +29,52 @@ public class ShiftController {
     }
 
     public void run() {
-        List<String> monthAndDayOfWeek = Converter.convertToListByDelimiter(inputView.scanMonthAndDayOfWeek());
-        Month month = Month.from(Converter.convertToInt(monthAndDayOfWeek.get(0)));
-        DayOfWeek dayOfWeek = DayOfWeek.from(monthAndDayOfWeek.get(1));
-
-        List<String> weekdayEmployeeNicknames = Converter.convertToListByDelimiter(
-                inputView.scanEmployeeNickNameForWeekdayShift());
-        Employees weekdayEmployees = weekdayEmployeeNicknames.stream()
-                .map(Employee::new)
-                .collect(collectingAndThen(Collectors.toList(), Employees::new));
-
-        List<String> weekendEmployeeNicknames = Converter.convertToListByDelimiter(
-                inputView.scanEmployeeNickNameForWeekendShift());
-        Employees weekendEmployees = weekendEmployeeNicknames.stream()
-                .map(Employee::new)
-                .collect(collectingAndThen(Collectors.toList(), Employees::new));
-
-        // 루프 돌 요일 화, 수, 목, 금 ,,,
-        List<DayOfWeek> startDayOfWeeks = DayOfWeek.getDayOfWeeksInOrderFrom(dayOfWeek);
-        List<ShiftDate> shiftDates = new ArrayList<>();
-        for (int day = 1; day <= month.getDays(); day++) {
-            shiftDates.add(new ShiftDate(month, day, startDayOfWeeks.get(day % startDayOfWeeks.size())));
-        }
-        List<ShiftOrderResult> shiftOrderResults = shiftAssignmentService.assign(shiftDates, weekdayEmployees,
-                weekendEmployees);
-
+        List<ShiftDate> shiftDates = getShiftDates();
+        List<ShiftOrderResult> shiftOrderResults = getShiftOrderResults(shiftDates);
         outputView.printResult(shiftOrderResults);
+    }
+
+    private List<ShiftOrderResult> getShiftOrderResults(List<ShiftDate> shiftDates) {
+        return inputWithRetry(() -> {
+            Employees weekdayEmployees = getEmployees(inputView.scanEmployeeNickNameForWeekdayShift());
+            Employees weekendEmployees = getEmployees(inputView.scanEmployeeNickNameForWeekendShift());
+            return shiftAssignmentService.assign(shiftDates, weekdayEmployees,
+                    weekendEmployees);
+        });
+    }
+
+    private Employees getEmployees(String input) {
+        List<String> employeeNicknames = Converter.convertToListByDelimiter(input);
+        return employeeNicknames.stream()
+                .map(Employee::new)
+                .collect(collectingAndThen(Collectors.toList(), Employees::new));
+    }
+
+    private List<ShiftDate> getShiftDates() {
+        return inputWithRetry(() -> {
+            List<String> monthAndDayOfWeek = Converter.convertToListByDelimiter(inputView.scanMonthAndDayOfWeek());
+            Month month = Month.from(Converter.convertToInt(monthAndDayOfWeek.get(0)));
+            List<DayOfWeek> startDayOfWeeks = getDayOfWeeks(monthAndDayOfWeek);
+            List<ShiftDate> shiftDates = new ArrayList<>();
+            for (int day = 0; day < month.getDays(); day++) {
+                shiftDates.add(new ShiftDate(month, day + 1, startDayOfWeeks.get(day % startDayOfWeeks.size())));
+            }
+            return shiftDates;
+        });
+    }
+
+    private static List<DayOfWeek> getDayOfWeeks(List<String> monthAndDayOfWeek) {
+        DayOfWeek dayOfWeek = DayOfWeek.from(monthAndDayOfWeek.get(1));
+        return DayOfWeek.getDayOfWeeksInOrderFrom(dayOfWeek);
+    }
+
+    private <T> T inputWithRetry(final Supplier<T> supplier) {
+        while (true) {
+            try {
+                return supplier.get();
+            } catch (IllegalArgumentException exception) {
+                outputView.printError(exception);
+            }
+        }
     }
 }
