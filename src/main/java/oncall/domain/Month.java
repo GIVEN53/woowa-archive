@@ -48,4 +48,8 @@ public enum Month {
     public List<Integer> getHolidays() {
         return holidays;
     }
+
+    public boolean isHoliday(int day) {
+        return holidays.contains(day);
+    }
 }
