@@ -25,4 +25,16 @@ public enum Month {
         this.days = days;
         this.holidays = holidays;
     }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getDays() {
+        return days;
+    }
+
+    public List<Integer> getHolidays() {
+        return holidays;
+    }
 }
