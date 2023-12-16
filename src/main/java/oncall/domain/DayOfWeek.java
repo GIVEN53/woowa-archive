@@ -4,7 +4,6 @@ import static oncall.ui.ErrorMessage.INVALID_DAY_OF_WEEK;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public enum DayOfWeek {
