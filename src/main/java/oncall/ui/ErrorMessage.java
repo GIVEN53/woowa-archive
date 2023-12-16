@@ -14,9 +14,10 @@ public enum ErrorMessage {
     CONTAIN_SPACE("입력값에 공백이 포함되어 있습니다.");
 
     private final String message;
+    private static final String ERROR = "[ERROR] ";
 
     ErrorMessage(String message) {
-        this.message = message;
+        this.message = ERROR + message;
     }
 
     public String getMessage() {
