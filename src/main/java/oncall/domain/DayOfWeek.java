@@ -1,5 +1,8 @@
 package oncall.domain;
 
+import static oncall.ui.ErrorMessage.INVALID_DAY_OF_WEEK;
+
+import java.util.Arrays;
 import java.util.List;
 
 public enum DayOfWeek {
@@ -11,12 +14,19 @@ public enum DayOfWeek {
     SATURDAY("토"),
     SUNDAY("일");
 
-    private final String name;
     private static final List<DayOfWeek> WEEKDAY = List.of(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY);
     private static final List<DayOfWeek> WEEKEND = List.of(SATURDAY, SUNDAY);
+    private final String name;
 
     DayOfWeek(String name) {
         this.name = name;
+    }
+
+    public static DayOfWeek from(String name) {
+        return Arrays.stream(values())
+                .filter(dayOfWeek -> dayOfWeek.name.equals(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(INVALID_DAY_OF_WEEK.getMessage()));
     }
 
     public String getName() {
