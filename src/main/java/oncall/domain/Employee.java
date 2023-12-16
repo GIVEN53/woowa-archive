@@ -28,4 +28,8 @@ public class Employee {
         }
         return false;
     }
+
+    public String getNickname() {
+        return nickname;
+    }
 }
