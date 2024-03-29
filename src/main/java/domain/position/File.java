@@ -37,7 +37,7 @@ public enum File {
         return fromName(String.valueOf(name));
     }
 
-    private static File fromOrder(int order) {
+    public static File fromOrder(int order) {
         return Arrays.stream(values())
                 .filter(file -> file.order == order)
                 .findFirst()
