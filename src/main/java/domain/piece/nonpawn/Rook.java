@@ -6,7 +6,11 @@ import domain.position.Position;
 
 public class Rook extends NonPawn {
     public Rook(Color color) {
-        super(color);
+        this(color, 0);
+    }
+
+    public Rook(Color color, int id) {
+        super(color, id);
     }
 
     @Override

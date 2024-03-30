@@ -8,7 +8,11 @@ public class Knight extends NonPawn {
     private static final int MOVE_COUNT_LIMIT = 2;
 
     public Knight(Color color) {
-        super(color);
+        this(color, 0);
+    }
+
+    public Knight(Color color, int id) {
+        super(color, id);
     }
 
     @Override

@@ -9,6 +9,12 @@ public abstract class Pawn implements Piece {
     private static final int DEFAULT_MOVE_COUNT_LIMIT = 1;
     private static final int INITIAL_MOVE_COUNT_LIMIT = 2;
 
+    private final int id;
+
+    protected Pawn(int id) {
+        this.id = id;
+    }
+
     @Override
     public void validateMovement(Position source, Position target, Piece other) {
         source.validateDifferentPosition(target);
@@ -76,5 +82,10 @@ public abstract class Pawn implements Piece {
     @Override
     public Type type() {
         return Type.PAWN;
+    }
+
+    @Override
+    public int id() {
+        return id;
     }
 }

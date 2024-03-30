@@ -6,7 +6,11 @@ import domain.position.Position;
 
 public class Queen extends NonPawn {
     public Queen(Color color) {
-        super(color);
+        this(color, 0);
+    }
+
+    public Queen(Color color, int id) {
+        super(color, id);
     }
 
     @Override

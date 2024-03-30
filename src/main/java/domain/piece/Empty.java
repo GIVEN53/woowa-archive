@@ -26,4 +26,9 @@ public class Empty implements Piece {
     public Type type() {
         throw new IllegalStateException("빈 칸입니다.");
     }
+
+    @Override
+    public int id() {
+        throw new IllegalStateException("빈 칸입니다.");
+    }
 }

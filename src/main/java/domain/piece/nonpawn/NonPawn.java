@@ -6,9 +6,11 @@ import domain.position.Position;
 
 public abstract class NonPawn implements Piece {
     private final Color color;
+    private final int id;
 
-    protected NonPawn(Color color) {
+    protected NonPawn(Color color, int id) {
         this.color = color;
+        this.id = id;
     }
 
     @Override
@@ -32,5 +34,10 @@ public abstract class NonPawn implements Piece {
     @Override
     public Color color() {
         return color;
+    }
+
+    @Override
+    public int id() {
+        return id;
     }
 }

@@ -6,7 +6,11 @@ import domain.position.Position;
 
 public class Bishop extends NonPawn {
     public Bishop(Color color) {
-        super(color);
+        this(color, 0);
+    }
+
+    public Bishop(Color color, int id) {
+        super(color, id);
     }
 
     @Override

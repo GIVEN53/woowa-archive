@@ -8,4 +8,6 @@ public interface Piece {
     Color color();
 
     Type type();
+
+    int id();
 }
