@@ -29,7 +29,8 @@ public class ChessBoard {
 
     private void validatePathClear(Position source, Position target) {
         List<Position> path = source.findPathTo(target);
-        if (path.stream().anyMatch(board::containsKey)) {
+        boolean existPiece = path.stream().anyMatch(board::containsKey);
+        if (existPiece) {
             throw new IllegalArgumentException("이동 경로에 다른 기물이 존재합니다.");
         }
     }
