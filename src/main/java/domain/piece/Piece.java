@@ -10,4 +10,16 @@ public interface Piece {
     Type type();
 
     int id();
+
+    default double score() {
+        return type().score();
+    }
+
+    default boolean isSameColor(Color color) {
+        return color().isSameColor(color);
+    }
+
+    default boolean isSameType(Type type) {
+        return type().isSameType(type);
+    }
 }
