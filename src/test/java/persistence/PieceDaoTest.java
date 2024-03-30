@@ -2,6 +2,7 @@ package persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import database.ConnectionManager;
 import domain.piece.Color;
 import domain.piece.Piece;
 import domain.piece.nonpawn.King;

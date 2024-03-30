@@ -1,4 +1,4 @@
-package persistence;
+package database;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

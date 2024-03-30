@@ -1,5 +1,6 @@
 package persistence;
 
+import database.ConnectionManager;
 import domain.piece.Color;
 import domain.piece.Piece;
 import domain.piece.Type;

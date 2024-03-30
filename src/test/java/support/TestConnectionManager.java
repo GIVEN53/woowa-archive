@@ -1,9 +1,9 @@
 package support;
 
+import database.ConnectionManager;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import persistence.ConnectionManager;
 
 public class TestConnectionManager implements ConnectionManager {
     private static final String SERVER = "localhost:13306";

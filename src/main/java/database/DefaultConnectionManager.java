@@ -1,10 +1,10 @@
-package persistence;
+package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DefaultConnectionManager implements ConnectionManager {
+public class DefaultConnectionManager implements ConnectionManager { // todo connection pool
     private static final String SERVER = "localhost:13306";
     private static final String DATABASE = "CHESS";
     private static final String OPTION = "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
