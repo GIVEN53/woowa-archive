@@ -1,21 +1,25 @@
 package controller.board;
 
-import controller.GameController;
+import application.BoardService;
+import dto.MovementDto;
+import ui.InputView;
+import ui.output.BoardOutputView;
+
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-import ui.InputView;
-import ui.output.BoardOutputView;
 
-public class BoardController implements GameController {
+public class BoardController {
     private final InputView inputView;
     private final BoardOutputView outputView;
+    private final BoardService boardService;
     private final Map<BoardCommand, Consumer<List<String>>> commands;
 
-    public BoardController(InputView inputView, BoardOutputView outputView) {
+    public BoardController(InputView inputView, BoardOutputView outputView, BoardService boardService) {
         this.inputView = inputView;
         this.outputView = outputView;
+        this.boardService = boardService;
         this.commands = new EnumMap<>(BoardCommand.class);
     }
 
@@ -26,8 +30,7 @@ public class BoardController implements GameController {
         });
     }
 
-    @Override
-    public void execute() {
+    public void run(int roomId) {
         putCommands();
         // 저장된 체스 확인
         outputView.printStartMessage(true); // todo
@@ -55,6 +58,7 @@ public class BoardController implements GameController {
     }
 
     private void move(List<String> rawCommands) {
+        MovementDto movementDto = MovementDto.from(rawCommands);
         // MoveDto 생성
         // 체스 게임 서비스에서 move 메서드 호출
         // 체스 출력

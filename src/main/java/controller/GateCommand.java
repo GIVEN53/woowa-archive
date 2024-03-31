@@ -1,10 +1,11 @@
 package controller;
 
 import controller.exception.CommandNotFoundException;
+
 import java.util.Arrays;
 
 public enum GateCommand {
-    START,
+    ROOM,
     END;
 
     public static GateCommand findCommand(String commandName) {

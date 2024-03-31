@@ -1,12 +1,21 @@
+import application.BoardService;
+import application.RoomService;
 import controller.GateController;
+import controller.board.BoardController;
+import controller.room.RoomController;
+import database.DefaultConnectionManager;
+import persistence.RoomDao;
 import ui.InputView;
-import ui.output.GameOutputView;
+import ui.output.BoardOutputView;
+import ui.output.GateOutputView;
+import ui.output.RoomOutputView;
 
 public class Application {
     public static void main(String[] args) {
         InputView inputView = new InputView();
-        GameOutputView outputView = new GameOutputView();
-        GateController gateController = new GateController(inputView, outputView);
+        BoardController boardController = new BoardController(inputView, new BoardOutputView(), new BoardService());
+        RoomController roomController = new RoomController(inputView, new RoomOutputView(), new RoomService(new RoomDao(new DefaultConnectionManager())), boardController);
+        GateController gateController = new GateController(inputView, new GateOutputView(), roomController);
         gateController.run();
     }
 }
