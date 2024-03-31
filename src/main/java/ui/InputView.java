@@ -1,4 +1,4 @@
-package view;
+package ui;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,10 +11,18 @@ public class InputView {
         this.scanner = new Scanner(System.in);
     }
 
-    public List<String> readCommand() {
+    public String readCommandName() {
         String input = scanner.nextLine().trim();
         validateInput(input);
-        return Arrays.asList(input.split(" ", -1));
+        return input;
+    }
+
+    public List<String> readCommandNameAndArgs() {
+        String input = scanner.nextLine();
+        validateInput(input);
+        return Arrays.stream(input.split(" ", -1))
+                .map(String::trim)
+                .toList();
     }
 
     private void validateInput(String input) {

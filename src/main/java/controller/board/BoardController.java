@@ -42,7 +42,7 @@ public class BoardController {
     private BoardCommand play() {
         try {
             outputView.printCommandMessage();
-            List<String> rawCommands = inputView.readCommand();
+            List<String> rawCommands = inputView.readCommandNameAndArgs();
             BoardCommand command = BoardCommand.findCommand(rawCommands);
             commands.get(command).accept(rawCommands);
             return command;

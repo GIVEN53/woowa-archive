@@ -20,7 +20,7 @@ public class GameController {
 
     private void putCommands() {
         commands.put(GameCommand.START, new BoardController(inputView, new BoardOutputView())); // todo 추상화
-        commands.put(GameCommand.END, null); // todo
+        commands.put(GameCommand.END, null); // todo 아무것도 안하도록
     }
 
     public void run() {
@@ -36,7 +36,7 @@ public class GameController {
     private GameCommand getCommand() {
         try {
             outputView.printCommandMessage();
-            String commandName = "start"; // todo inputView.readCommand()
+            String commandName = inputView.readCommandName();
             return GameCommand.findCommand(commandName);
         } catch (Exception e) {
             outputView.printErrorMessage(e);
