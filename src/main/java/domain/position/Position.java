@@ -106,7 +106,7 @@ public class Position {
     }
 
     private int calculateRankGap(Position target) {
-        return Math.abs(this.rank.subtract(target.rank));
+        return Math.abs(this.rank.number() - target.rank.number());
     }
 
     private int calculateFileGap(Position target) {
@@ -114,11 +114,11 @@ public class Position {
     }
 
     public boolean isUpperRankThan(Position target) {
-        return this.rank.isUpperThan(target.rank);
+        return this.rank.number() > target.rank.number();
     }
 
     public boolean isLowerRankThan(Position target) {
-        return this.rank.isLowerThan(target.rank);
+        return this.rank.number() < target.rank.number();
     }
 
     public boolean isSameRank(Rank rank) {
