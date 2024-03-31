@@ -5,8 +5,9 @@ import java.util.Arrays;
 
 public enum Command {
     START("start", 0),
-    END("end", 0),
-    MOVE("move", 2);
+    MOVE("move", 2),
+    STATUS("status", 0),
+    END("end", 0);
 
     private final String name;
     private final int positionCount;

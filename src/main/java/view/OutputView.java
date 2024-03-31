@@ -5,6 +5,8 @@ import static view.Command.MOVE;
 import static view.Command.START;
 
 import domain.board.ChessBoard;
+import domain.game.GameResult;
+import domain.piece.Color;
 import domain.piece.Piece;
 import domain.piece.Type;
 import domain.position.File;
@@ -66,6 +68,12 @@ public class OutputView {
             return pieceName.toUpperCase();
         }
         return pieceName;
+    }
+
+    public void printStatus(GameResult gameResult) {
+        System.out.println("> 게임 결과");
+        System.out.printf("> 흰색 점수 : %.1f%n", gameResult.calculateScore(Color.WHITE));
+        System.out.printf("> 검은색 점수 : %.1f%n", gameResult.calculateScore(Color.BLACK));
     }
 
     public void printErrorMessage(Exception e) {

@@ -32,8 +32,7 @@ public class GameResult {
 
     private double calculateSameFilePawnScore(Color color) {
         Map<File, Long> sameFilePawnCount = board.entrySet().stream()
-                .filter(entry -> entry.getValue().isSameColor(color))
-                .filter(entry -> entry.getValue().isSameType(Type.PAWN))
+                .filter(entry -> entry.getValue().isSameColor(color) && entry.getValue().isSameType(Type.PAWN))
                 .map(entry -> entry.getKey().file())
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 

@@ -1,6 +1,7 @@
 package controller;
 
 import domain.game.ChessGame;
+import domain.game.GameResult;
 import domain.game.MovePosition;
 import java.util.EnumMap;
 import java.util.Map;
@@ -28,6 +29,7 @@ public class ChessController {
     private void putCommands() {
         commands.put(Command.START, (chessGame, ignore) -> start(chessGame));
         commands.put(Command.MOVE, this::move);
+        commands.put(Command.STATUS, (chessGame, ignore) -> status(chessGame));
         commands.put(Command.END, (chessGame, ignore) -> end(chessGame));
     }
 
@@ -57,6 +59,11 @@ public class ChessController {
     private void move(ChessGame chessGame, MovePosition movePosition) {
         chessGame.move(movePosition);
         outputView.printBoard(chessGame.getBoard());
+    }
+
+    private void status(ChessGame chessGame) {
+        GameResult gameResult = chessGame.status();
+        outputView.printStatus(gameResult);
     }
 
     private void end(ChessGame chessGame) {
