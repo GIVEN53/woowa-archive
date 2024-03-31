@@ -1,6 +1,7 @@
 package domain.game;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import domain.piece.Color;
 import domain.piece.Piece;
@@ -51,5 +52,67 @@ class GameResultTest {
         double score = gameResult.calculateScore(color);
 
         assertThat(score).isEqualTo(4.5);
+    }
+
+    @Test
+    void 화이트_또는_블랙의_킹_중_한_쪽이_잡혔으면_true를_반환한다() {
+        Map<Position, Piece> board = Map.of(
+                new Position(File.F, Rank.FIVE), new King(Color.BLACK)
+        );
+        GameResult gameResult = new GameResult(board);
+
+        boolean isCapturedKing = gameResult.isCapturedKing();
+
+        assertThat(isCapturedKing).isTrue();
+    }
+
+    @Test
+    void 화이트_또는_블랙의_킹_모두_잡히지_않았으면_false를_반환한다() {
+        Map<Position, Piece> board = Map.of(
+                new Position(File.E, Rank.FOUR), new King(Color.WHITE),
+                new Position(File.F, Rank.FIVE), new King(Color.BLACK)
+        );
+        GameResult gameResult = new GameResult(board);
+
+        boolean isCapturedKing = gameResult.isCapturedKing();
+
+        assertThat(isCapturedKing).isFalse();
+    }
+
+    @Test
+    void 화이트_킹이_잡혔으면_블랙이_승리한다() {
+        Map<Position, Piece> board = Map.of(
+                new Position(File.F, Rank.FIVE), new King(Color.BLACK)
+        );
+        GameResult gameResult = new GameResult(board);
+
+        Color winner = gameResult.getWinner();
+
+        assertThat(winner).isEqualTo(Color.BLACK);
+    }
+
+    @Test
+    void 블랙_킹이_잡혔으면_화이트가_승리한다() {
+        Map<Position, Piece> board = Map.of(
+                new Position(File.F, Rank.FIVE), new King(Color.WHITE)
+        );
+        GameResult gameResult = new GameResult(board);
+
+        Color winner = gameResult.getWinner();
+
+        assertThat(winner).isEqualTo(Color.WHITE);
+    }
+
+    @Test
+    void 화이트_킹과_블랙_킹이_모두_잡히지_않았으면_승자를_구할_수_없다() {
+        Map<Position, Piece> board = Map.of(
+                new Position(File.E, Rank.FOUR), new King(Color.WHITE),
+                new Position(File.F, Rank.FIVE), new King(Color.BLACK)
+        );
+        GameResult gameResult = new GameResult(board);
+
+        assertThatThrownBy(gameResult::getWinner)
+                .isExactlyInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("게임이 종료되지 않았습니다.");
     }
 }

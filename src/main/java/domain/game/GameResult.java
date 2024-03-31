@@ -5,6 +5,7 @@ import domain.piece.Piece;
 import domain.piece.Type;
 import domain.position.File;
 import domain.position.Position;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -16,7 +17,7 @@ public class GameResult {
     private final Map<Position, Piece> board;
 
     public GameResult(Map<Position, Piece> board) {
-        this.board = board;
+        this.board = new HashMap<>(board);
     }
 
     public double calculateScore(Color color) {
@@ -40,5 +41,25 @@ public class GameResult {
                 .filter(count -> count >= SAME_FILE_PAWN_COUNT)
                 .mapToDouble(count -> count * SAME_FILE_PAWN_SCORE)
                 .sum();
+    }
+
+    public boolean isCapturedKing() {
+        return isCapturedKing(Color.BLACK) || isCapturedKing(Color.WHITE);
+    }
+
+    private boolean isCapturedKing(Color color) {
+        return board.values().stream()
+                .filter(piece -> piece.isSameType(Type.KING))
+                .noneMatch(piece -> piece.isSameColor(color));
+    }
+
+    public Color getWinner() {
+        if (isCapturedKing(Color.BLACK)) {
+            return Color.WHITE;
+        }
+        if (isCapturedKing(Color.WHITE)) {
+            return Color.BLACK;
+        }
+        throw new IllegalStateException("게임이 종료되지 않았습니다.");
     }
 }

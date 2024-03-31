@@ -38,6 +38,11 @@ public class ChessController {
         ChessGame chessGame = new ChessGame();
         while (chessGame.isRunning()) {
             executeCommand(chessGame);
+            GameResult gameResult = chessGame.status();
+            if (gameResult.isCapturedKing()) {
+                outputView.printKingCapturedMessage(gameResult.getWinner());
+                break;
+            }
         }
     }
 

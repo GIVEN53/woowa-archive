@@ -76,6 +76,17 @@ public class OutputView {
         System.out.printf("> 검은색 점수 : %.1f%n", gameResult.calculateScore(Color.BLACK));
     }
 
+    public void printKingCapturedMessage(Color winner) {
+        System.out.printf("> %s이 승리했습니다.%n", generateWinnerDisplay(winner));
+    }
+
+    private String generateWinnerDisplay(Color winner) {
+        if (winner.isWhite()) {
+            return "흰색";
+        }
+        return "검은색";
+    }
+
     public void printErrorMessage(Exception e) {
         System.out.println(e.getMessage());
     }
