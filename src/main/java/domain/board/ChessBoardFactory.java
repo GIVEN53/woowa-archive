@@ -31,7 +31,7 @@ public class ChessBoardFactory {
         Map<Position, Piece> positionAndPieces = new HashMap<>();
         positionAndPieces.putAll(createNonPawnPieces());
         positionAndPieces.putAll(createPawnPieces());
-        return new ChessBoard(positionAndPieces, Color.WHITE);
+        return new ChessBoard(positionAndPieces);
     }
 
     private static Map<Position, Piece> createNonPawnPieces() {

@@ -2,7 +2,7 @@ package domain.board;
 
 import domain.piece.Color;
 import domain.piece.Piece;
-import domain.piece.nonpawn.Queen;
+import domain.piece.nonpawn.*;
 import domain.piece.pawn.BlackPawn;
 import domain.position.File;
 import domain.position.Position;
@@ -11,8 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 
 class ChessBoardTest {
     @Test
@@ -22,7 +21,7 @@ class ChessBoardTest {
         Map<Position, Piece> positionPieceMap = Map.of(
                 source, new Queen(Color.WHITE),
                 new Position(File.F, Rank.FIVE), new Queen(Color.BLACK));
-        ChessBoard board = new ChessBoard(positionPieceMap, Color.WHITE);
+        ChessBoard board = new ChessBoard(positionPieceMap);
 
         assertThatThrownBy(() -> board.movePiece(source, target))
                 .isExactlyInstanceOf(IllegalArgumentException.class)
@@ -34,7 +33,7 @@ class ChessBoardTest {
         Position source = new Position(File.F, Rank.FOUR);
         Position target = new Position(File.F, Rank.EIGHT);
         Piece piece = new Queen(Color.WHITE);
-        ChessBoard board = new ChessBoard(Map.of(source, piece), Color.WHITE);
+        ChessBoard board = new ChessBoard(Map.of(source, piece));
 
         board.movePiece(source, target);
 
@@ -51,7 +50,7 @@ class ChessBoardTest {
         Map<Position, Piece> positionPieceMap = Map.of(
                 source, sourcePiece,
                 target, targetPiece);
-        ChessBoard board = new ChessBoard(positionPieceMap, Color.WHITE);
+        ChessBoard board = new ChessBoard(positionPieceMap);
 
         board.movePiece(source, target);
 
@@ -64,7 +63,7 @@ class ChessBoardTest {
         Position source = new Position(File.F, Rank.FOUR);
         Position target = new Position(File.F, Rank.FIVE);
         Map<Position, Piece> positionPieceMap = Map.of(source, new Queen(Color.BLACK));
-        ChessBoard board = new ChessBoard(positionPieceMap, Color.WHITE);
+        ChessBoard board = new ChessBoard(positionPieceMap);
 
         assertThatThrownBy(() -> board.movePiece(source, target))
                 .isExactlyInstanceOf(IllegalArgumentException.class)
@@ -73,11 +72,114 @@ class ChessBoardTest {
 
     @Test
     void 기물을_움직이면_턴이_바뀐다() {
-        Position source = new Position(File.F, Rank.FOUR);
-        Position target = new Position(File.F, Rank.FIVE);
-        Map<Position, Piece> positionPieceMap = Map.of(source, new Queen(Color.WHITE));
-        ChessBoard board = new ChessBoard(positionPieceMap, Color.WHITE);
+        Position whitePosition = new Position(File.F, Rank.FOUR);
+        Position blackPosition = new Position(File.F, Rank.FIVE);
+        Map<Position, Piece> positionPieceMap = Map.of(
+                whitePosition, new Queen(Color.WHITE),
+                blackPosition, new Queen(Color.BLACK)
+        );
+        ChessBoard board = new ChessBoard(positionPieceMap);
+        board.movePiece(whitePosition, new Position(File.A, Rank.FOUR));
 
-        board.movePiece(source, target);
+        assertThatCode(() -> board.movePiece(blackPosition, new Position(File.F, Rank.SIX)))
+                .doesNotThrowAnyException();
+    }
+
+    @Test
+    void 남아있는_기물의_점수를_계산한다() {
+        Color color = Color.BLACK;
+        Map<Position, Piece> board = Map.of(
+                Position.from("b1"), new Queen(color),
+                Position.from("c2"), new Rook(color),
+                Position.from("d3"), new Bishop(color),
+                Position.from("e4"), new Knight(color),
+                Position.from("f5"), new King(color),
+                Position.from("g6"), new BlackPawn()
+        );
+        ChessBoard chessBoard = new ChessBoard(board);
+
+        double score = chessBoard.calculateScore(color);
+
+        assertThat(score).isEqualTo(20.5);
+    }
+
+    @Test
+    void 같은_file의_pawn이_있을_경우_각각의_pawn_점수를_절반으로_계산한다() {
+        Color color = Color.BLACK;
+        Map<Position, Piece> board = Map.of(
+                new Position(File.B, Rank.ONE), new BlackPawn(),
+                new Position(File.B, Rank.TWO), new BlackPawn(),
+                new Position(File.B, Rank.THREE), new BlackPawn(),
+                new Position(File.D, Rank.FOUR), new BlackPawn(),
+                new Position(File.E, Rank.FIVE), new BlackPawn(),
+                new Position(File.F, Rank.SIX), new BlackPawn()
+        );
+        ChessBoard chessBoard = new ChessBoard(board);
+
+        double score = chessBoard.calculateScore(color);
+
+        assertThat(score).isEqualTo(4.5);
+    }
+
+    @Test
+    void 화이트_또는_블랙의_킹_중_한_쪽이_잡혔으면_true를_반환한다() {
+        Map<Position, Piece> board = Map.of(
+                new Position(File.F, Rank.FIVE), new King(Color.BLACK)
+        );
+        ChessBoard chessBoard = new ChessBoard(board);
+
+        boolean isCapturedKing = chessBoard.isKingCaptured();
+
+        assertThat(isCapturedKing).isTrue();
+    }
+
+    @Test
+    void 화이트_또는_블랙의_킹_모두_잡히지_않았으면_false를_반환한다() {
+        Map<Position, Piece> board = Map.of(
+                new Position(File.E, Rank.FOUR), new King(Color.WHITE),
+                new Position(File.F, Rank.FIVE), new King(Color.BLACK)
+        );
+        ChessBoard chessBoard = new ChessBoard(board);
+
+        boolean isCapturedKing = chessBoard.isKingCaptured();
+
+        assertThat(isCapturedKing).isFalse();
+    }
+
+    @Test
+    void 화이트_킹이_잡혔으면_블랙이_승리한다() {
+        Map<Position, Piece> board = Map.of(
+                new Position(File.F, Rank.FIVE), new King(Color.BLACK)
+        );
+        ChessBoard chessBoard = new ChessBoard(board);
+
+        Winner winner = chessBoard.getWinner();
+
+        assertThat(winner).isEqualTo(Winner.BLACK);
+    }
+
+    @Test
+    void 블랙_킹이_잡혔으면_화이트가_승리한다() {
+        Map<Position, Piece> board = Map.of(
+                new Position(File.F, Rank.FIVE), new King(Color.WHITE)
+        );
+        ChessBoard chessBoard = new ChessBoard(board);
+
+        Winner winner = chessBoard.getWinner();
+
+        assertThat(winner).isEqualTo(Winner.WHITE);
+    }
+
+    @Test
+    void 화이트_킹과_블랙_킹이_모두_잡히지_않았으면_승자를_구할_수_없다() {
+        Map<Position, Piece> board = Map.of(
+                new Position(File.E, Rank.FOUR), new King(Color.WHITE),
+                new Position(File.F, Rank.FIVE), new King(Color.BLACK)
+        );
+        ChessBoard chessBoard = new ChessBoard(board);
+
+        assertThatThrownBy(chessBoard::getWinner)
+                .isExactlyInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("게임이 종료되지 않았습니다.");
     }
 }
