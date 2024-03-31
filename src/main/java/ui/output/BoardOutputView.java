@@ -6,14 +6,15 @@ import domain.piece.Color;
 import domain.piece.Empty;
 import domain.piece.Piece;
 import domain.piece.Type;
-import domain.position.File;
 import domain.position.Position;
-import domain.position.Rank;
-import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class BoardOutputView {
+    private static final List<String> RANK = List.of("8", "7", "6", "5", "4", "3", "2", "1");
+    private static final List<String> FILE = List.of("a", "b", "c", "d", "e", "f", "g", "h");
+
     private static final Map<Type, String> PIECE_DISPLAY = Map.of(
             Type.PAWN, "p",
             Type.KNIGHT, "n",
@@ -43,15 +44,14 @@ public class BoardOutputView {
 
     public void printBoard(ChessBoard chessBoard) {
         Map<Position, Piece> board = chessBoard.getPositionAndPieces();
-        Arrays.stream(Rank.values())
+        RANK.stream()
                 .map(rank -> generatePieceDisplay(board, rank))
                 .forEach(System.out::println);
-        System.out.println();
     }
 
-    private String generatePieceDisplay(Map<Position, Piece> board, Rank rank) {
-        return Arrays.stream(File.values())
-                .map(file -> new Position(file, rank))
+    private String generatePieceDisplay(Map<Position, Piece> board, String rank) {
+        return FILE.stream()
+                .map(file -> Position.from(file + rank))
                 .map(position -> board.getOrDefault(position, Empty.create()))
                 .map(this::pieceDisplay)
                 .collect(Collectors.joining());
