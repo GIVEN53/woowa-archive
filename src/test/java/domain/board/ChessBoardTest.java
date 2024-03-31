@@ -1,17 +1,22 @@
 package domain.board;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import domain.piece.Color;
 import domain.piece.Piece;
-import domain.piece.nonpawn.*;
+import domain.piece.nonpawn.Bishop;
+import domain.piece.nonpawn.King;
+import domain.piece.nonpawn.Knight;
+import domain.piece.nonpawn.Queen;
+import domain.piece.nonpawn.Rook;
 import domain.piece.pawn.BlackPawn;
 import domain.position.File;
 import domain.position.Position;
 import domain.position.Rank;
-import org.junit.jupiter.api.Test;
-
 import java.util.Map;
-
-import static org.assertj.core.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class ChessBoardTest {
     @Test
@@ -171,15 +176,14 @@ class ChessBoardTest {
     }
 
     @Test
-    void 화이트_킹과_블랙_킹이_모두_잡히지_않았으면_승자를_구할_수_없다() {
+    void 화이트_킹과_블랙_킹이_모두_잡히지_않았으면_무승부이다() {
         Map<Position, Piece> board = Map.of(
                 new Position(File.E, Rank.FOUR), new King(Color.WHITE),
                 new Position(File.F, Rank.FIVE), new King(Color.BLACK)
         );
         ChessBoard chessBoard = new ChessBoard(board);
 
-        assertThatThrownBy(chessBoard::getWinner)
-                .isExactlyInstanceOf(IllegalStateException.class)
-                .hasMessageContaining("게임이 종료되지 않았습니다.");
+        Winner winner = chessBoard.getWinner();
+        assertThat(winner).isEqualTo(Winner.DRAW);
     }
 }
