@@ -1,17 +1,36 @@
 package domain.position;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Position {
+    private static final Map<String, Position> POSITION_CACHE;
+
+    static {
+        POSITION_CACHE = Arrays.stream(File.values())
+                .flatMap(file -> Arrays.stream(Rank.values())
+                        .map(rank -> Map.entry(toKey(file, rank), new Position(file, rank))))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
     private final File file;
     private final Rank rank;
 
-    public Position(File file, Rank rank) {
+    public Position(File file, Rank rank) { // todo private
         this.file = file;
         this.rank = rank;
+    }
+
+    public static Position from(String position) {
+        if (!POSITION_CACHE.containsKey(position)) {
+            throw new IllegalArgumentException("존재하지 않는 위치입니다.");
+        }
+        return POSITION_CACHE.get(position);
+    }
+
+    private static String toKey(File file, Rank rank) {
+        return file.expression() + rank.number();
     }
 
     public List<Position> findPathTo(Position target) {
@@ -27,7 +46,7 @@ public class Position {
         return Collections.emptyList();
     }
 
-    private List<Position> generateStraightPath(List<File> files, List<Rank> ranks) {
+    private List<Position> generateStraightPath(List<File> files, List<Rank> ranks) { // todo Path 분리
         if (files.isEmpty()) {
             return generateVerticalPath(ranks);
         }
