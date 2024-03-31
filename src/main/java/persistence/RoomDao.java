@@ -2,7 +2,9 @@ package persistence;
 
 import database.ConnectionManager;
 import domain.room.Room;
+
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,8 +17,9 @@ public class RoomDao {
     }
 
     public void save(Room room) {
+        String query = "INSERT INTO ROOM (NAME) VALUES (?)";
         try (var connection = connectionManager.getConnection();
-             var preparedStatement = connection.prepareStatement("INSERT INTO ROOM (NAME) VALUES (?)")) {
+             var preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, room.getName());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -25,12 +28,15 @@ public class RoomDao {
     }
 
     public List<Room> findAll() {
+        String query = "SELECT * FROM ROOM";
         try (var connection = connectionManager.getConnection();
-             var preparedStatement = connection.prepareStatement("SELECT * FROM ROOM");
+             var preparedStatement = connection.prepareStatement(query);
              var resultSet = preparedStatement.executeQuery()) {
             List<Room> rooms = new ArrayList<>();
             while (resultSet.next()) {
-                rooms.add(new Room(resultSet.getInt("ROOM_ID"), resultSet.getString("NAME")));
+                int roomId = resultSet.getInt("ROOM_ID");
+                String name = resultSet.getString("NAME");
+                rooms.add(new Room(roomId, name));
             }
             return rooms;
         } catch (SQLException e) {
@@ -38,13 +44,16 @@ public class RoomDao {
         }
     }
 
-    public Optional<Room> findById(int roomId) {
+    public Optional<Room> findById(int id) {
+        String query = "SELECT * FROM ROOM WHERE ROOM_ID = ?";
         try (var connection = connectionManager.getConnection();
-             var preparedStatement = connection.prepareStatement("SELECT * FROM ROOM WHERE ROOM_ID = ?")) {
-            preparedStatement.setInt(1, roomId);
+             var preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
             var resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return Optional.of(new Room(resultSet.getInt("ROOM_ID"), resultSet.getString("NAME")));
+                int roomId = resultSet.getInt("ROOM_ID");
+                String name = resultSet.getString("NAME");
+                return Optional.of(new Room(roomId, name));
             }
             return Optional.empty();
         } catch (SQLException e) {
@@ -53,8 +62,9 @@ public class RoomDao {
     }
 
     public void deleteById(int roomId) {
+        String query = "DELETE FROM ROOM WHERE ROOM_ID = ?";
         try (var connection = connectionManager.getConnection();
-             var preparedStatement = connection.prepareStatement("DELETE FROM ROOM WHERE ROOM_ID = ?")) {
+             var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, roomId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
