@@ -1,23 +1,22 @@
 package persistence;
 
-import database.ConnectionManager;
+import database.ConnectionPool;
 import dto.MovementDto;
-
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BoardDao {
-    private final ConnectionManager connectionManager;
+    private final ConnectionPool connectionPool;
 
-    public BoardDao(ConnectionManager connectionManager) {
-        this.connectionManager = connectionManager;
+    public BoardDao(ConnectionPool connectionPool) {
+        this.connectionPool = connectionPool;
     }
 
     public void save(MovementDto movementDto, int roomId) {
         String query = "INSERT INTO BOARD (SOURCE, TARGET, ROOM_ID) VALUES (?, ?, ?)";
-        try (var connection = connectionManager.getConnection();
+        try (var connection = connectionPool.getConnection();
              var preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, movementDto.source());
             preparedStatement.setString(2, movementDto.target());
@@ -30,7 +29,7 @@ public class BoardDao {
 
     public List<MovementDto> findByRoomId(int roomId) {
         String query = "SELECT * FROM BOARD WHERE ROOM_ID = ?";
-        try (var connection = connectionManager.getConnection();
+        try (var connection = connectionPool.getConnection();
              var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, roomId);
             var resultSet = preparedStatement.executeQuery();
@@ -48,7 +47,7 @@ public class BoardDao {
 
     public void deleteByRoomId(int roomId) {
         String query = "DELETE FROM BOARD WHERE ROOM_ID = ?";
-        try (var connection = connectionManager.getConnection();
+        try (var connection = connectionPool.getConnection();
              var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, roomId);
             preparedStatement.executeUpdate();

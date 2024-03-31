@@ -1,22 +1,21 @@
 package persistence;
 
-import database.ConnectionManager;
-import dto.MovementDto;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
-import support.TestConnectionManager;
-
-import java.sql.SQLException;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
+import database.ConnectionPool;
+import dto.MovementDto;
+import java.sql.SQLException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+import support.TestConnectionPool;
+
 class BoardDaoTest {
-    private final ConnectionManager connectionManager = new TestConnectionManager();
-    private final BoardDao boardDao = new BoardDao(connectionManager);
+    private final ConnectionPool connectionPool = new TestConnectionPool();
+    private final BoardDao boardDao = new BoardDao(connectionPool);
 
     @AfterEach
     void tearDown() {
-        try (var connection = connectionManager.getConnection();
+        try (var connection = connectionPool.getConnection();
              var preparedStatement = connection.prepareStatement("DELETE FROM BOARD")) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

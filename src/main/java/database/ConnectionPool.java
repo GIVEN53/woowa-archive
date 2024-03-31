@@ -2,6 +2,6 @@ package database;
 
 import java.sql.Connection;
 
-public interface ConnectionManager {
+public interface ConnectionPool {
     Connection getConnection();
 }
