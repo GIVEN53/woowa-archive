@@ -14,12 +14,14 @@ public class InputView {
     public String readCommandName() {
         String input = scanner.nextLine().trim();
         validateInput(input);
+        System.out.println();
         return input;
     }
 
     public List<String> readCommandNameAndArgs() {
         String input = scanner.nextLine();
         validateInput(input);
+        System.out.println();
         return Arrays.stream(input.split(" ", -1))
                 .map(String::trim)
                 .toList();
