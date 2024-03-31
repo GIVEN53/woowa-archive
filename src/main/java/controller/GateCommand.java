@@ -3,12 +3,11 @@ package controller;
 import controller.exception.CommandNotFoundException;
 import java.util.Arrays;
 
-public enum GameCommand {
+public enum GateCommand {
     START,
-    END,
-    NONE;
+    END;
 
-    public static GameCommand findCommand(String commandName) {
+    public static GateCommand findCommand(String commandName) {
         return Arrays.stream(values())
                 .filter(command -> command.name().equalsIgnoreCase(commandName))
                 .findFirst()

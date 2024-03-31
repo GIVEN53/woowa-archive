@@ -1,5 +1,6 @@
 package controller.board;
 
+import controller.GameController;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -7,7 +8,7 @@ import java.util.function.Consumer;
 import ui.InputView;
 import ui.output.BoardOutputView;
 
-public class BoardController {
+public class BoardController implements GameController {
     private final InputView inputView;
     private final BoardOutputView outputView;
     private final Map<BoardCommand, Consumer<List<String>>> commands;
@@ -25,7 +26,8 @@ public class BoardController {
         });
     }
 
-    public void run() {
+    @Override
+    public void execute() {
         putCommands();
         // 저장된 체스 확인
         outputView.printStartMessage(true); // todo
@@ -33,13 +35,13 @@ public class BoardController {
         // 체스 출력
         BoardCommand command = BoardCommand.NONE;
         while (command != BoardCommand.END) {
-            command = play();
-            command = isCapturedKing();
+            command = playGame();
+            command = verifyKingCaptured(command);
         }
         // 현재 게임 저장
     }
 
-    private BoardCommand play() {
+    private BoardCommand playGame() {
         try {
             outputView.printCommandMessage();
             List<String> rawCommands = inputView.readCommandNameAndArgs();
@@ -64,10 +66,11 @@ public class BoardController {
         // 체스 출력
     }
 
-    private BoardCommand isCapturedKing() {
+    private BoardCommand verifyKingCaptured(BoardCommand command) {
         // 체스 게임 서비스에서 isCapturedKing 메서드 호출
         // 잡혔으면 승자 출력하고 END 리턴
-        return BoardCommand.END;
+//        return BoardCommand.END;
         // 아니면 그대로
+        return command;
     }
 }
