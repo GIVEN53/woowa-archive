@@ -20,7 +20,7 @@ public class Room {
 
     private void validateEmptyName(String name) {
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("방 이름은 비어있습니다.");
+            throw new IllegalArgumentException("룸 이름이 비어있습니다.");
         }
     }
 
