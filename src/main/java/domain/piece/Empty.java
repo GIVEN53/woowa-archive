@@ -24,7 +24,7 @@ public class Empty implements Piece {
 
     @Override
     public Type type() {
-        throw new IllegalStateException("빈 칸입니다.");
+        return Type.EMPTY;
     }
 
     @Override

@@ -20,6 +20,9 @@ public enum Type {
             return new WhitePawn(id);
         }
         return new BlackPawn(id);
+    }),
+    EMPTY(0, (color, id) -> {
+        throw new IllegalStateException("빈 칸입니다.");
     });
 
     private final double score;
