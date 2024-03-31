@@ -9,8 +9,6 @@ public interface Piece {
 
     Type type();
 
-    int id();
-
     default double score() {
         return type().score();
     }

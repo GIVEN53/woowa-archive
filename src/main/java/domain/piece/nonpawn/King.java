@@ -8,11 +8,7 @@ public class King extends NonPawn {
     private static final int MOVE_COUNT_LIMIT = 1;
 
     public King(Color color) {
-        this(color, 0);
-    }
-
-    public King(Color color, int id) {
-        super(color, id);
+        super(color);
     }
 
     @Override

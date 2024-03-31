@@ -6,11 +6,9 @@ import domain.position.Position;
 
 public abstract class NonPawn implements Piece {
     private final Color color;
-    private final int id;
 
-    protected NonPawn(Color color, int id) {
+    protected NonPawn(Color color) {
         this.color = color;
-        this.id = id;
     }
 
     @Override
@@ -22,7 +20,7 @@ public abstract class NonPawn implements Piece {
     }
 
     private void validateDifferentColorFromOtherPiece(Piece other) {
-        if (color().isSameColor(other.color())) {
+        if (isSameColor(other.color())) {
             throw new IllegalArgumentException("같은 색의 기물이 존재합니다.");
         }
     }
@@ -34,10 +32,5 @@ public abstract class NonPawn implements Piece {
     @Override
     public Color color() {
         return color;
-    }
-
-    @Override
-    public int id() {
-        return id;
     }
 }

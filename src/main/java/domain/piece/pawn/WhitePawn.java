@@ -5,14 +5,6 @@ import domain.position.Position;
 import domain.position.Rank;
 
 public class WhitePawn extends Pawn {
-    public WhitePawn() {
-        this(0);
-    }
-
-    public WhitePawn(int id) {
-        super(id);
-    }
-
     @Override
     protected boolean isMovedBack(Position source, Position target) {
         return source.isUpperRankThan(target);

@@ -8,11 +8,7 @@ public class Knight extends NonPawn {
     private static final int MOVE_COUNT_LIMIT = 2;
 
     public Knight(Color color) {
-        this(color, 0);
-    }
-
-    public Knight(Color color, int id) {
-        super(color, id);
+        super(color);
     }
 
     @Override
@@ -23,7 +19,7 @@ public class Knight extends NonPawn {
     }
 
     @Override
-    protected void validateMoveCount(Position source, Position target) {
+    protected void validateMoveCount(Position source, Position target) { // todo 삭제
         int moveCount = source.calculateDistance(target);
         if (moveCount != MOVE_COUNT_LIMIT) {
             throw new IllegalArgumentException(

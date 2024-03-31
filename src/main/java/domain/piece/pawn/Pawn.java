@@ -9,10 +9,7 @@ public abstract class Pawn implements Piece {
     private static final int DEFAULT_MOVE_COUNT_LIMIT = 1;
     private static final int INITIAL_MOVE_COUNT_LIMIT = 2;
 
-    private final int id;
-
-    protected Pawn(int id) {
-        this.id = id;
+    protected Pawn() {
     }
 
     @Override
@@ -82,10 +79,5 @@ public abstract class Pawn implements Piece {
     @Override
     public Type type() {
         return Type.PAWN;
-    }
-
-    @Override
-    public int id() {
-        return id;
     }
 }
