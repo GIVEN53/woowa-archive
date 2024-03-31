@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import domain.piece.Color;
-import domain.piece.Empty;
 import domain.piece.Piece;
 import domain.position.File;
 import domain.position.Position;
@@ -13,14 +12,14 @@ import org.junit.jupiter.api.Test;
 
 class BishopTest {
     private final Piece bishop = new Bishop(Color.WHITE);
-    private final Piece other = Empty.create();
+    private final Color targetColor = Color.NEUTRALITY;
 
     @Test
     void 대각선_방향으로_이동할_수_있다() {
         Position source = new Position(File.D, Rank.FOUR);
         Position target = new Position(File.E, Rank.FIVE);
 
-        assertThatCode(() -> bishop.validateMovement(source, target, other))
+        assertThatCode(() -> bishop.validateMovement(source, target, targetColor))
                 .doesNotThrowAnyException();
     }
 
@@ -29,7 +28,7 @@ class BishopTest {
         Position source = new Position(File.D, Rank.FOUR);
         Position target = new Position(File.D, Rank.EIGHT);
 
-        assertThatThrownBy(() -> bishop.validateMovement(source, target, other))
+        assertThatThrownBy(() -> bishop.validateMovement(source, target, targetColor))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("대각선 방향으로 이동해야 합니다.");
     }
@@ -39,7 +38,7 @@ class BishopTest {
         Position source = new Position(File.D, Rank.FOUR);
         Position target = new Position(File.F, Rank.THREE);
 
-        assertThatThrownBy(() -> bishop.validateMovement(source, target, other))
+        assertThatThrownBy(() -> bishop.validateMovement(source, target, targetColor))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("대각선 방향으로 이동해야 합니다.");
     }
@@ -49,7 +48,7 @@ class BishopTest {
         Position source = new Position(File.D, Rank.FOUR);
         Position target = new Position(File.A, Rank.TWO);
 
-        assertThatThrownBy(() -> bishop.validateMovement(source, target, other))
+        assertThatThrownBy(() -> bishop.validateMovement(source, target, targetColor))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("대각선 방향으로 이동해야 합니다.");
     }
@@ -59,7 +58,7 @@ class BishopTest {
         Position source = new Position(File.A, Rank.ONE);
         Position target = new Position(File.H, Rank.EIGHT);
 
-        assertThatCode(() -> bishop.validateMovement(source, target, other))
+        assertThatCode(() -> bishop.validateMovement(source, target, targetColor))
                 .doesNotThrowAnyException();
     }
 }

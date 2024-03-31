@@ -6,7 +6,6 @@ import domain.piece.Piece;
 import domain.piece.Type;
 import domain.position.File;
 import domain.position.Position;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +27,7 @@ public class ChessBoard {
 
     public void movePiece(Position source, Position target) {
         Piece sourcePiece = findByPosition(source);
-        sourcePiece.validateMovement(source, target, findByPosition(target));
+        sourcePiece.validateMovement(source, target, findByPosition(target).color());
         validatePathClear(source, target);
         changeOppositeTurn(sourcePiece);
         moveToTargetPosition(source, target);
@@ -67,7 +66,7 @@ public class ChessBoard {
 
     private double calculatePieceScore(Color color) {
         return board.values().stream()
-                .filter(piece -> piece.color().isSameColor(color))
+                .filter(piece -> piece.isSameColor(color))
                 .mapToDouble(Piece::score)
                 .sum();
     }

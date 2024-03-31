@@ -5,28 +5,16 @@ public enum Color {
     BLACK,
     NEUTRALITY;
 
-    public boolean isBlack() {
-        return this == BLACK;
+    public boolean isNotNeutrality() {
+        return this != NEUTRALITY;
     }
 
-    public boolean isWhite() {
-        return this == WHITE;
-    }
-
-    public boolean isNeutrality() {
-        return this == NEUTRALITY;
-    }
-
-    public boolean isSameColor(Color other) {
-        return this == other;
-    }
-
-    public boolean isOppositeColor(Color other) {
+    public boolean isNotOppositeColor(Color other) {
         if (this == WHITE) {
-            return other == BLACK;
+            return other != BLACK;
         }
         if (this == BLACK) {
-            return other == WHITE;
+            return other != WHITE;
         }
         return false;
     }
@@ -39,5 +27,9 @@ public enum Color {
             return WHITE;
         }
         return NEUTRALITY;
+    }
+
+    protected boolean isSameColor(Color other) {
+        return this == other;
     }
 }

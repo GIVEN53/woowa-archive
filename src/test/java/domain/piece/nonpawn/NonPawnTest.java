@@ -14,23 +14,23 @@ class NonPawnTest {
     private final Piece nonPawn = new Queen(Color.WHITE);
 
     @Test
-    void 같은_색의_기물이_있으면_예외가_발생한다() {
+    void 이동할_위치에_같은_색의_기물이_있으면_예외가_발생한다() {
         Position source = new Position(File.F, Rank.EIGHT);
         Position target = new Position(File.F, Rank.FOUR);
-        Piece other = new Bishop(Color.WHITE);
+        Color targetColor = Color.WHITE;
 
-        assertThatThrownBy(() -> nonPawn.validateMovement(source, target, other))
+        assertThatThrownBy(() -> nonPawn.validateMovement(source, target, targetColor))
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("같은 색의 기물이 존재합니다");
     }
 
     @Test
-    void 다른_색의_기물이_있으면_예외가_발생하지_않는다() {
+    void 이동할_위치에_다른_색의_기물이_있으면_예외가_발생하지_않는다() {
         Position source = new Position(File.F, Rank.EIGHT);
         Position target = new Position(File.F, Rank.FOUR);
-        Piece other = new Bishop(Color.BLACK);
+        Color targetColor = Color.BLACK;
 
-        assertThatCode(() -> nonPawn.validateMovement(source, target, other))
+        assertThatCode(() -> nonPawn.validateMovement(source, target, targetColor))
                 .doesNotThrowAnyException();
     }
 }
