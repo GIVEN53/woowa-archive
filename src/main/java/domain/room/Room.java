@@ -1,7 +1,7 @@
 package domain.room;
 
 public class Room {
-    private static final int MIN_NAME_LENGTH = 5;
+    private static final int MIN_NAME_LENGTH = 2;
     private static final int MAX_NAME_LENGTH = 20;
 
     private final int roomId;
@@ -29,5 +29,13 @@ public class Room {
             throw new IllegalArgumentException(
                     String.format("룸 이름은 %d자 이상 %d자 이하여야 합니다.", MIN_NAME_LENGTH, MAX_NAME_LENGTH));
         }
+    }
+
+    public int getRoomId() {
+        return this.roomId;
+    }
+
+    public String getName() {
+        return this.name;
     }
 }
