@@ -21,7 +21,7 @@ public class Position {
     private final File file;
     private final Rank rank;
 
-    public Position(File file, Rank rank) { // todo private
+    private Position(File file, Rank rank) {
         this.file = file;
         this.rank = rank;
     }
@@ -31,6 +31,10 @@ public class Position {
             throw new IllegalArgumentException("존재하지 않는 위치입니다.");
         }
         return POSITION_CACHE.get(position);
+    }
+
+    public static Position of(File file, Rank rank) {
+        return from(toKey(file, rank));
     }
 
     private static String toKey(File file, Rank rank) {

@@ -3,9 +3,8 @@ package domain.piece;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import domain.position.File;
 import domain.position.Position;
-import domain.position.Rank;
+import fixture.PositionFixture;
 import org.junit.jupiter.api.Test;
 
 class EmptyTest {
@@ -14,8 +13,8 @@ class EmptyTest {
 
     @Test
     void Empty_기물의_움직임을_검증하면_예외가_발생한다() {
-        Position source = new Position(File.A, Rank.ONE);
-        Position target = new Position(File.A, Rank.TWO);
+        Position source = PositionFixture.A8;
+        Position target = PositionFixture.B3;
 
         assertThatThrownBy(() -> empty.validateMovement(source, target, targetColor))
                 .isExactlyInstanceOf(IllegalStateException.class);

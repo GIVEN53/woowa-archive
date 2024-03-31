@@ -5,9 +5,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import domain.piece.Color;
 import domain.piece.Piece;
-import domain.position.File;
 import domain.position.Position;
-import domain.position.Rank;
+import fixture.PositionFixture;
 import org.junit.jupiter.api.Test;
 
 class KingTest {
@@ -16,8 +15,8 @@ class KingTest {
 
     @Test
     void 수직_방향으로_이동할_수_있다() {
-        Position source = new Position(File.D, Rank.FOUR);
-        Position target = new Position(File.D, Rank.FIVE);
+        Position source = PositionFixture.B8;
+        Position target = PositionFixture.B7;
 
         assertThatCode(() -> king.validateMovement(source, target, targetColor))
                 .doesNotThrowAnyException();
@@ -25,8 +24,8 @@ class KingTest {
 
     @Test
     void 수평_방향으로_이동할_수_있다() {
-        Position source = new Position(File.D, Rank.FOUR);
-        Position target = new Position(File.C, Rank.FOUR);
+        Position source = PositionFixture.C8;
+        Position target = PositionFixture.D8;
 
         assertThatCode(() -> king.validateMovement(source, target, targetColor))
                 .doesNotThrowAnyException();
@@ -34,8 +33,8 @@ class KingTest {
 
     @Test
     void 대각선_방향으로_이동할_수_있다() {
-        Position source = new Position(File.D, Rank.FOUR);
-        Position target = new Position(File.E, Rank.FIVE);
+        Position source = PositionFixture.E3;
+        Position target = PositionFixture.F2;
 
         assertThatCode(() -> king.validateMovement(source, target, targetColor))
                 .doesNotThrowAnyException();
@@ -43,8 +42,8 @@ class KingTest {
 
     @Test
     void L자_방향으로_이동하면_예외가_발생한다() {
-        Position source = new Position(File.D, Rank.FOUR);
-        Position target = new Position(File.F, Rank.THREE);
+        Position source = PositionFixture.F8;
+        Position target = PositionFixture.H7;
 
         assertThatThrownBy(() -> king.validateMovement(source, target, targetColor))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -53,8 +52,8 @@ class KingTest {
 
     @Test
     void 한_칸만_이동할_수_있다() {
-        Position source = new Position(File.D, Rank.FOUR);
-        Position target = new Position(File.E, Rank.FIVE);
+        Position source = PositionFixture.H8;
+        Position target = PositionFixture.H7;
 
         assertThatCode(() -> king.validateMovement(source, target, targetColor))
                 .doesNotThrowAnyException();
@@ -62,8 +61,8 @@ class KingTest {
 
     @Test
     void 한_칸_이상_이동하면_예외가_발생한다() {
-        Position source = new Position(File.D, Rank.FOUR);
-        Position target = new Position(File.F, Rank.FOUR);
+        Position source = PositionFixture.E7;
+        Position target = PositionFixture.E5;
 
         assertThatThrownBy(() -> king.validateMovement(source, target, targetColor))
                 .isInstanceOf(IllegalArgumentException.class)

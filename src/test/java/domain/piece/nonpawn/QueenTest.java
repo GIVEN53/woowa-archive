@@ -5,9 +5,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import domain.piece.Color;
 import domain.piece.Piece;
-import domain.position.File;
 import domain.position.Position;
-import domain.position.Rank;
+import fixture.PositionFixture;
 import org.junit.jupiter.api.Test;
 
 class QueenTest {
@@ -16,8 +15,8 @@ class QueenTest {
 
     @Test
     void 수직_방향으로_이동할_수_있다() {
-        Position source = new Position(File.D, Rank.FOUR);
-        Position target = new Position(File.D, Rank.FIVE);
+        Position source = PositionFixture.D6;
+        Position target = PositionFixture.D5;
 
         assertThatCode(() -> queen.validateMovement(source, target, targetColor))
                 .doesNotThrowAnyException();
@@ -25,8 +24,8 @@ class QueenTest {
 
     @Test
     void 수평_방향으로_이동할_수_있다() {
-        Position source = new Position(File.D, Rank.FOUR);
-        Position target = new Position(File.C, Rank.FOUR);
+        Position source = PositionFixture.G2;
+        Position target = PositionFixture.F2;
 
         assertThatCode(() -> queen.validateMovement(source, target, targetColor))
                 .doesNotThrowAnyException();
@@ -34,8 +33,8 @@ class QueenTest {
 
     @Test
     void 대각선_방향으로_이동할_수_있다() {
-        Position source = new Position(File.D, Rank.FOUR);
-        Position target = new Position(File.E, Rank.FIVE);
+        Position source = PositionFixture.F1;
+        Position target = PositionFixture.E2;
 
         assertThatCode(() -> queen.validateMovement(source, target, targetColor))
                 .doesNotThrowAnyException();
@@ -44,8 +43,8 @@ class QueenTest {
 
     @Test
     void L자_방향으로_이동하면_예외가_발생한다() {
-        Position source = new Position(File.D, Rank.FOUR);
-        Position target = new Position(File.F, Rank.THREE);
+        Position source = PositionFixture.C6;
+        Position target = PositionFixture.E7;
 
         assertThatThrownBy(() -> queen.validateMovement(source, target, targetColor))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -54,8 +53,8 @@ class QueenTest {
 
     @Test
     void 정의되지_않은_방향으로_이동하면_예외가_발생한다() {
-        Position source = new Position(File.D, Rank.FOUR);
-        Position target = new Position(File.A, Rank.TWO);
+        Position source = PositionFixture.F1;
+        Position target = PositionFixture.A3;
 
         assertThatThrownBy(() -> queen.validateMovement(source, target, targetColor))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -64,8 +63,8 @@ class QueenTest {
 
     @Test
     void 거리에_상관없이_이동할_수_있다() {
-        Position source = new Position(File.D, Rank.ONE);
-        Position target = new Position(File.D, Rank.EIGHT);
+        Position source = PositionFixture.D1;
+        Position target = PositionFixture.D8;
 
         assertThatCode(() -> queen.validateMovement(source, target, targetColor))
                 .doesNotThrowAnyException();

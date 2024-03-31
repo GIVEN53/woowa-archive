@@ -5,9 +5,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import domain.piece.Color;
 import domain.piece.Piece;
-import domain.position.File;
 import domain.position.Position;
-import domain.position.Rank;
+import fixture.PositionFixture;
 import org.junit.jupiter.api.Test;
 
 class NonPawnTest {
@@ -15,8 +14,8 @@ class NonPawnTest {
 
     @Test
     void 이동할_위치에_같은_색의_기물이_있으면_예외가_발생한다() {
-        Position source = new Position(File.F, Rank.EIGHT);
-        Position target = new Position(File.F, Rank.FOUR);
+        Position source = PositionFixture.C6;
+        Position target = PositionFixture.C7;
         Color targetColor = Color.WHITE;
 
         assertThatThrownBy(() -> nonPawn.validateMovement(source, target, targetColor))
@@ -26,8 +25,8 @@ class NonPawnTest {
 
     @Test
     void 이동할_위치에_다른_색의_기물이_있으면_예외가_발생하지_않는다() {
-        Position source = new Position(File.F, Rank.EIGHT);
-        Position target = new Position(File.F, Rank.FOUR);
+        Position source = PositionFixture.E1;
+        Position target = PositionFixture.E2;
         Color targetColor = Color.BLACK;
 
         assertThatCode(() -> nonPawn.validateMovement(source, target, targetColor))
