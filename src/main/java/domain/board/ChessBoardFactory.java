@@ -2,16 +2,13 @@ package domain.board;
 
 import domain.piece.Color;
 import domain.piece.Piece;
-import domain.piece.nonpawn.Bishop;
-import domain.piece.nonpawn.King;
-import domain.piece.nonpawn.Knight;
-import domain.piece.nonpawn.Queen;
-import domain.piece.nonpawn.Rook;
+import domain.piece.nonpawn.*;
 import domain.piece.pawn.BlackPawn;
 import domain.piece.pawn.WhitePawn;
 import domain.position.File;
 import domain.position.Position;
 import domain.position.Rank;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -34,7 +31,7 @@ public class ChessBoardFactory {
         Map<Position, Piece> positionAndPieces = new HashMap<>();
         positionAndPieces.putAll(createNonPawnPieces());
         positionAndPieces.putAll(createPawnPieces());
-        return new ChessBoard(positionAndPieces);
+        return new ChessBoard(positionAndPieces, Color.WHITE);
     }
 
     private static Map<Position, Piece> createNonPawnPieces() {

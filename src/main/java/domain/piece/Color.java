@@ -30,4 +30,14 @@ public enum Color {
         }
         return false;
     }
+
+    public Color opposite() {
+        if (this == WHITE) {
+            return BLACK;
+        }
+        if (this == BLACK) {
+            return WHITE;
+        }
+        return NEUTRALITY;
+    }
 }
