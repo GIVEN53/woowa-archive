@@ -1,5 +1,6 @@
 package controller;
 
+import controller.board.BoardController;
 import java.util.EnumMap;
 import java.util.Map;
 import view.InputView;

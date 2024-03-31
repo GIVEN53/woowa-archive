@@ -1,4 +1,4 @@
-package controller;
+package controller.board;
 
 import java.util.EnumMap;
 import java.util.List;

@@ -1,4 +1,4 @@
-package controller;
+package controller.board;
 
 import controller.exception.CommandNotFoundException;
 import java.util.Arrays;
