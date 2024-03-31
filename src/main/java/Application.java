@@ -1,11 +1,11 @@
 import controller.GameController;
-import view.InputView;
-import view.OutputView;
+import ui.InputView;
+import ui.output.GameOutputView;
 
 public class Application {
     public static void main(String[] args) {
         InputView inputView = new InputView();
-        OutputView outputView = new OutputView();
+        GameOutputView outputView = new GameOutputView();
         GameController gameController = new GameController(inputView, outputView);
         gameController.run();
     }

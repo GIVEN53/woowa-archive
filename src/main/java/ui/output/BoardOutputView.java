@@ -1,11 +1,6 @@
-package view;
-
-import static view.Command.END;
-import static view.Command.MOVE;
-import static view.Command.START;
+package ui.output;
 
 import domain.board.ChessBoard;
-import domain.game.GameResult;
 import domain.piece.Color;
 import domain.piece.Empty;
 import domain.piece.Piece;
@@ -17,7 +12,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class OutputView {
+public class BoardOutputView {
     private static final Map<Type, String> PIECE_DISPLAY = Map.of(
             Type.PAWN, "p",
             Type.KNIGHT, "n",
@@ -28,11 +23,23 @@ public class OutputView {
             Type.EMPTY, "."
     );
 
-    public void printStartingMessage() {
+    private static final Map<Color, String> COLOR_DISPLAY = Map.of(
+            Color.WHITE, "흰색",
+            Color.BLACK, "검은색"
+    );
+
+    public void printStartMessage(boolean existsPlayingGame) {
         System.out.println("> 체스 게임을 시작합니다.");
-        System.out.printf("> 게임 시작 : %s%n", START.getName());
-        System.out.printf("> 게임 종료 : %s%n", END.getName());
-        System.out.printf("> 게임 이동 : %s source위치 target위치 - 예. %s b2 b3%n", MOVE.getName(), MOVE.getName());
+        System.out.println("> 저장된 체스 게임을 확인 중입니다.");
+        if (!existsPlayingGame) {
+            System.out.println("> 플레이 중인 게임이 존재하지 않아 새로운 체스 게임을 생성합니다.");
+        }
+    }
+
+    public void printCommandMessage() {
+        System.out.println("> 기물 이동 : move source위치 target위치 - ex. move b2 b3");
+        System.out.println("> 게임 상태 : status");
+        System.out.println("> 게임 종료 : end - 종료 시 게임이 저장됩니다.");
     }
 
     public void printBoard(ChessBoard chessBoard) {
@@ -59,21 +66,8 @@ public class OutputView {
         return pieceName;
     }
 
-    public void printStatus(GameResult gameResult) {
-        System.out.println("> 게임 결과");
-        System.out.printf("> 흰색 점수 : %.1f%n", gameResult.calculateScore(Color.WHITE));
-        System.out.printf("> 검은색 점수 : %.1f%n", gameResult.calculateScore(Color.BLACK));
-    }
-
     public void printKingCapturedMessage(Color winner) {
-        System.out.printf("> %s이 승리했습니다.%n", generateWinnerDisplay(winner));
-    }
-
-    private String generateWinnerDisplay(Color winner) {
-        if (winner.isWhite()) {
-            return "흰색";
-        }
-        return "검은색";
+        System.out.printf("> %s이 승리했습니다.%n", COLOR_DISPLAY.get(winner));
     }
 
     public void printErrorMessage(Exception e) {

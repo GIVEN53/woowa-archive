@@ -4,15 +4,15 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-import view.InputView;
-import view.OutputView;
+import ui.InputView;
+import ui.output.BoardOutputView;
 
 public class BoardController {
     private final InputView inputView;
-    private final OutputView outputView;
+    private final BoardOutputView outputView;
     private final Map<BoardCommand, Consumer<List<String>>> commands;
 
-    public BoardController(InputView inputView, OutputView outputView) {
+    public BoardController(InputView inputView, BoardOutputView outputView) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.commands = new EnumMap<>(BoardCommand.class);
@@ -27,7 +27,8 @@ public class BoardController {
 
     public void run() {
         putCommands();
-        outputView.printStartingMessage();
+        // 저장된 체스 확인
+        outputView.printStartMessage(true); // todo
         // 체스 게임 생성
         // 체스 출력
         BoardCommand command = BoardCommand.NONE;
@@ -40,6 +41,7 @@ public class BoardController {
 
     private BoardCommand play() {
         try {
+            outputView.printCommandMessage();
             List<String> rawCommands = inputView.readCommand();
             BoardCommand command = BoardCommand.findCommand(rawCommands);
             commands.get(command).accept(rawCommands);
