@@ -1,6 +1,7 @@
 package ui.output;
 
 import domain.board.ChessBoard;
+import domain.board.Winner;
 import domain.piece.Color;
 import domain.piece.Empty;
 import domain.piece.Piece;
@@ -23,17 +24,15 @@ public class BoardOutputView {
             Type.EMPTY, "."
     );
 
-    private static final Map<Color, String> COLOR_DISPLAY = Map.of(
-            Color.WHITE, "흰색",
-            Color.BLACK, "검은색"
+    private static final Map<Winner, String> COLOR_DISPLAY = Map.of(
+            Winner.WHITE, "흰색",
+            Winner.BLACK, "검은색",
+            Winner.DRAW, "무승부"
     );
 
-    public void printStartMessage(boolean existsPlayingGame) {
+    public void printStartMessage() {
         System.out.println("> 체스 게임을 시작합니다.");
         System.out.println("> 저장된 체스 게임을 확인 중입니다.");
-        if (!existsPlayingGame) {
-            System.out.println("> 플레이 중인 게임이 존재하지 않아 새로운 체스 게임을 생성합니다.");
-        }
     }
 
     public void printCommandMessage() {
@@ -66,8 +65,15 @@ public class BoardOutputView {
         return pieceName;
     }
 
-    public void printKingCapturedMessage(Color winner) {
+    public void printBoardStatus(ChessBoard chessBoard) {
+        System.out.printf("흰색의 점수: %.1f%n", chessBoard.calculateScore(Color.WHITE));
+        System.out.printf("검은색의 점수: %.1f%n", chessBoard.calculateScore(Color.BLACK));
+        System.out.println();
+    }
+
+    public void printKingCapturedMessage(Winner winner) {
         System.out.printf("> %s이 승리했습니다.%n", COLOR_DISPLAY.get(winner));
+        System.out.println();
     }
 
     public void printErrorMessage(Exception e) {
