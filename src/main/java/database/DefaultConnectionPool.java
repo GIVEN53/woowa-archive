@@ -19,7 +19,7 @@ public class DefaultConnectionPool implements ConnectionPool {
     private int currentIndex;
 
     public DefaultConnectionPool() {
-        this.currentIndex = -1;
+        this.currentIndex = 0;
         this.connections = Stream.generate(this::createConnection)
                 .limit(MAX_CONNECTIONS_SIZE)
                 .toList();
