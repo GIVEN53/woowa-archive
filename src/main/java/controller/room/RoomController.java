@@ -3,15 +3,16 @@ package controller.room;
 import application.RoomService;
 import controller.board.BoardController;
 import domain.room.Room;
-import ui.InputView;
-import ui.output.RoomOutputView;
-
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+import ui.InputView;
+import ui.output.RoomOutputView;
 
 public class RoomController {
+    private static final int ARG_INDEX = 1;
+
     private final InputView inputView;
     private final RoomOutputView outputView;
     private final RoomService roomService;
@@ -58,13 +59,13 @@ public class RoomController {
     }
 
     private void create(List<String> rawCommands) {
-        String name = String.join(" ", rawCommands.subList(1, rawCommands.size())); // todo
+        String name = String.join(" ", rawCommands.subList(ARG_INDEX, rawCommands.size()));
         roomService.save(name);
         outputView.printCreateRoomMessage(name);
     }
 
     private void delete(List<String> rawCommands) {
-        int roomId = Integer.parseInt(rawCommands.get(1)); // todo
+        int roomId = Integer.parseInt(rawCommands.get(ARG_INDEX));
         roomService.deleteById(roomId);
         outputView.printDeleteRoomMessage(roomId);
     }
@@ -75,7 +76,7 @@ public class RoomController {
     }
 
     private void enter(List<String> rawCommands) {
-        int roomId = Integer.parseInt(rawCommands.get(1)); // todo
+        int roomId = Integer.parseInt(rawCommands.get(ARG_INDEX));
         roomService.validateRoomId(roomId);
         boardController.run(roomId);
     }
