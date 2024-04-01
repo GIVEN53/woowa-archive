@@ -2,26 +2,20 @@ package persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import database.ConnectionPool;
+import database.JdbcTemplate;
 import domain.room.Room;
-import java.sql.SQLException;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import support.TestConnectionPool;
 
 class RoomDaoTest {
-    private ConnectionPool connectionPool = new TestConnectionPool();
-    private RoomDao roomDao = new RoomDao(connectionPool);
+    private final JdbcTemplate jdbcTemplate = new JdbcTemplate(new TestConnectionPool());
+    private final RoomDao roomDao = new RoomDao(jdbcTemplate);
 
     @AfterEach
     void tearDown() {
-        try (var connection = connectionPool.getConnection();
-             var preparedStatement = connection.prepareStatement("DELETE FROM ROOM")) {
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        jdbcTemplate.update("DELETE FROM ROOM");
     }
 
     @Test

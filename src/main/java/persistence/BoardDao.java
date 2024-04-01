@@ -1,58 +1,34 @@
 package persistence;
 
-import database.ConnectionPool;
+import database.JdbcTemplate;
+import database.RowMapper;
 import dto.MovementDto;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 public class BoardDao {
-    private final ConnectionPool connectionPool;
+    private final JdbcTemplate jdbcTemplate;
+    private final RowMapper<MovementDto> rowMapper = resultSet -> {
+        String source = resultSet.getString("SOURCE");
+        String target = resultSet.getString("TARGET");
+        return new MovementDto(source, target);
+    };
 
-    public BoardDao(ConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
+    public BoardDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public void save(MovementDto movementDto, int roomId) {
         String query = "INSERT INTO BOARD (SOURCE, TARGET, ROOM_ID) VALUES (?, ?, ?)";
-        try (var connection = connectionPool.getConnection();
-             var preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-            preparedStatement.setString(1, movementDto.source());
-            preparedStatement.setString(2, movementDto.target());
-            preparedStatement.setInt(3, roomId);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        jdbcTemplate.update(query, movementDto.source(), movementDto.target(), roomId);
     }
 
     public List<MovementDto> findByRoomId(int roomId) {
         String query = "SELECT * FROM BOARD WHERE ROOM_ID = ?";
-        try (var connection = connectionPool.getConnection();
-             var preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, roomId);
-            var resultSet = preparedStatement.executeQuery();
-            List<MovementDto> movements = new ArrayList<>();
-            while (resultSet.next()) {
-                String source = resultSet.getString("SOURCE");
-                String target = resultSet.getString("TARGET");
-                movements.add(new MovementDto(source, target));
-            }
-            return movements;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return jdbcTemplate.query(query, rowMapper, roomId);
     }
 
     public void deleteByRoomId(int roomId) {
         String query = "DELETE FROM BOARD WHERE ROOM_ID = ?";
-        try (var connection = connectionPool.getConnection();
-             var preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, roomId);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        jdbcTemplate.update(query, roomId);
     }
 }

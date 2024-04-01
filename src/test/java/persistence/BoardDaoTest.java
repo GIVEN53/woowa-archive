@@ -2,25 +2,19 @@ package persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import database.ConnectionPool;
+import database.JdbcTemplate;
 import dto.MovementDto;
-import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import support.TestConnectionPool;
 
 class BoardDaoTest {
-    private final ConnectionPool connectionPool = new TestConnectionPool();
-    private final BoardDao boardDao = new BoardDao(connectionPool);
+    private final JdbcTemplate jdbcTemplate = new JdbcTemplate(new TestConnectionPool());
+    private final BoardDao boardDao = new BoardDao(jdbcTemplate);
 
     @AfterEach
     void tearDown() {
-        try (var connection = connectionPool.getConnection();
-             var preparedStatement = connection.prepareStatement("DELETE FROM BOARD")) {
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        jdbcTemplate.update("DELETE FROM BOARD");
     }
 
     @Test

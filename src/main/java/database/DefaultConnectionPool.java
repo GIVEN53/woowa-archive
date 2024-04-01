@@ -13,22 +13,16 @@ public class DefaultConnectionPool implements ConnectionPool {
     private static final String OPTION = "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
-    private static final int MAX_CONNECTIONS = 5;
+    private static final int MAX_CONNECTIONS_SIZE = 5;
 
-    private int currentIndex; // todo 동기화 처리 atomicInteger
     private final List<Connection> connections;
+    private int currentIndex; // todo 동기화 처리 atomicInteger
 
     public DefaultConnectionPool() {
         this.currentIndex = -1;
         this.connections = Stream.generate(this::createConnection)
-                .limit(MAX_CONNECTIONS)
+                .limit(MAX_CONNECTIONS_SIZE)
                 .toList();
-    }
-
-    @Override
-    public Connection getConnection() {
-        currentIndex++;
-        return connections.get(currentIndex % connections.size());
     }
 
     private Connection createConnection() {
@@ -37,5 +31,11 @@ public class DefaultConnectionPool implements ConnectionPool {
         } catch (SQLException e) {
             throw new ConnectionFailedException(e.getMessage());
         }
+    }
+
+    @Override
+    public Connection getConnection() {
+        currentIndex++;
+        return connections.get(currentIndex % connections.size());
     }
 }

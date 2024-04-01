@@ -13,12 +13,22 @@ public class TestConnectionPool implements ConnectionPool {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
 
-    @Override
-    public Connection getConnection() {
+    private final Connection connection;
+
+    public TestConnectionPool() {
+        this.connection = createConnection();
+    }
+
+    private Connection createConnection() {
         try {
             return DriverManager.getConnection("jdbc:mysql://" + SERVER + "/" + DATABASE + OPTION, USERNAME, PASSWORD);
         } catch (SQLException e) {
             throw new ConnectionFailedException(e.getMessage());
         }
+    }
+
+    @Override
+    public Connection getConnection() {
+        return this.connection;
     }
 }
