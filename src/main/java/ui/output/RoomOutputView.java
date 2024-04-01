@@ -5,7 +5,7 @@ import java.util.List;
 
 public class RoomOutputView {
     public void printCommandMessage() {
-        System.out.println("> 룸 생성 : create 룸 이름 ex. create 초보 환영");
+        System.out.println("> 룸 생성 : create 룸 이름 ex. create 초보 환영 (최대 20자)");
         System.out.println("> 룸 삭제 : delete 룸 번호 ex. delete 1");
         System.out.println("> 룸 입장 : enter 룸 번호 ex. enter 1");
         System.out.println("> 룸 조회 : show");
