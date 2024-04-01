@@ -16,7 +16,7 @@ public class DefaultConnectionPool implements ConnectionPool {
     private static final int MAX_CONNECTIONS_SIZE = 5;
 
     private final List<Connection> connections;
-    private int currentIndex; // todo 동기화 처리 atomicInteger
+    private int currentIndex;
 
     public DefaultConnectionPool() {
         this.currentIndex = -1;
@@ -35,7 +35,8 @@ public class DefaultConnectionPool implements ConnectionPool {
 
     @Override
     public Connection getConnection() {
-        currentIndex++;
-        return connections.get(currentIndex % connections.size());
+        synchronized (this.connections) {
+            return connections.get(currentIndex++ % connections.size());
+        }
     }
 }
