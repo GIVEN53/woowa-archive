@@ -5,11 +5,10 @@ import domain.board.ChessBoardFactory;
 import domain.board.Winner;
 import domain.position.Position;
 import dto.MovementDto;
-import persistence.BoardDao;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import persistence.BoardDao;
 
 public class BoardService {
     private final BoardDao boardDao;

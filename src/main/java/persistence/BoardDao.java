@@ -1,34 +1,12 @@
 package persistence;
 
-import database.JdbcTemplate;
-import database.RowMapper;
 import dto.MovementDto;
 import java.util.List;
 
-public class BoardDao {
-    private final JdbcTemplate jdbcTemplate;
-    private final RowMapper<MovementDto> rowMapper = resultSet -> {
-        String source = resultSet.getString("SOURCE");
-        String target = resultSet.getString("TARGET");
-        return new MovementDto(source, target);
-    };
+public interface BoardDao {
+    void save(MovementDto movementDto, int roomId);
 
-    public BoardDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    List<MovementDto> findByRoomId(int roomId);
 
-    public void save(MovementDto movementDto, int roomId) {
-        String query = "INSERT INTO BOARD (SOURCE, TARGET, ROOM_ID) VALUES (?, ?, ?)";
-        jdbcTemplate.update(query, movementDto.source(), movementDto.target(), roomId);
-    }
-
-    public List<MovementDto> findByRoomId(int roomId) {
-        String query = "SELECT * FROM BOARD WHERE ROOM_ID = ?";
-        return jdbcTemplate.query(query, rowMapper, roomId);
-    }
-
-    public void deleteByRoomId(int roomId) {
-        String query = "DELETE FROM BOARD WHERE ROOM_ID = ?";
-        jdbcTemplate.update(query, roomId);
-    }
+    void deleteByRoomId(int roomId);
 }

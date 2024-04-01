@@ -11,7 +11,7 @@ import support.TestConnectionPool;
 
 class RoomDaoTest {
     private final JdbcTemplate jdbcTemplate = new JdbcTemplate(new TestConnectionPool());
-    private final RoomDao roomDao = new RoomDao(jdbcTemplate);
+    private final RoomDao roomDao = new RoomDaoImpl(jdbcTemplate);
 
     @AfterEach
     void tearDown() {

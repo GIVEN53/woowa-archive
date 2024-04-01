@@ -5,8 +5,8 @@ import controller.board.BoardController;
 import controller.room.RoomController;
 import database.DefaultConnectionPool;
 import database.JdbcTemplate;
-import persistence.BoardDao;
-import persistence.RoomDao;
+import persistence.BoardDaoImpl;
+import persistence.RoomDaoImpl;
 import ui.InputView;
 import ui.output.BoardOutputView;
 import ui.output.GateOutputView;
@@ -26,13 +26,13 @@ public class Application {
     }
 
     private static RoomController createRoomController(JdbcTemplate jdbcTemplate, InputView inputView) {
-        RoomService roomService = new RoomService(new RoomDao(jdbcTemplate));
+        RoomService roomService = new RoomService(new RoomDaoImpl(jdbcTemplate));
         BoardController boardController = createBoardController(jdbcTemplate, inputView);
         return new RoomController(inputView, new RoomOutputView(), roomService, boardController);
     }
 
     private static BoardController createBoardController(JdbcTemplate jdbcTemplate, InputView inputView) {
-        BoardService boardService = new BoardService(new BoardDao(jdbcTemplate));
+        BoardService boardService = new BoardService(new BoardDaoImpl(jdbcTemplate));
         return new BoardController(inputView, new BoardOutputView(), boardService);
     }
 }

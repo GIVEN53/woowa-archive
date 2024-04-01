@@ -10,7 +10,7 @@ import support.TestConnectionPool;
 
 class BoardDaoTest {
     private final JdbcTemplate jdbcTemplate = new JdbcTemplate(new TestConnectionPool());
-    private final BoardDao boardDao = new BoardDao(jdbcTemplate);
+    private final BoardDao boardDao = new BoardDaoImpl(jdbcTemplate);
 
     @AfterEach
     void tearDown() {

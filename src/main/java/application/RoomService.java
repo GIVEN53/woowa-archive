@@ -1,10 +1,9 @@
 package application;
 
 import domain.room.Room;
-import persistence.RoomDao;
-
 import java.util.List;
 import java.util.Optional;
+import persistence.RoomDao;
 
 public class RoomService {
     private final RoomDao roomDao;
