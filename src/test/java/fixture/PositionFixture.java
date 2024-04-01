@@ -47,7 +47,6 @@ public class PositionFixture {
     public static final Position E8 = position(File.E, Rank.EIGHT);
     public static final Position F1 = position(File.F, Rank.ONE);
     public static final Position F2 = position(File.F, Rank.TWO);
-
     public static final Position F3 = position(File.F, Rank.THREE);
     public static final Position F4 = position(File.F, Rank.FOUR);
     public static final Position F5 = position(File.F, Rank.FIVE);

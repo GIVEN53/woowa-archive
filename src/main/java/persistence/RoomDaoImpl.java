@@ -36,6 +36,7 @@ public class RoomDaoImpl implements RoomDao {
         return jdbcTemplate.queryForObject(query, rowMapper, id);
     }
 
+    @Override
     public void deleteById(int roomId) {
         String query = "DELETE FROM ROOM WHERE ROOM_ID = ?";
         jdbcTemplate.update(query, roomId);
