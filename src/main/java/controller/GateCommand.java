@@ -1,7 +1,6 @@
 package controller;
 
 import controller.exception.CommandNotFoundException;
-
 import java.util.Arrays;
 
 public enum GateCommand {

@@ -54,7 +54,7 @@ public class Position {
         return Collections.emptyList();
     }
 
-    private List<Position> generateStraightPath(List<File> files, List<Rank> ranks) { // todo Path 분리
+    private List<Position> generateStraightPath(List<File> files, List<Rank> ranks) {
         if (files.isEmpty()) {
             return generateVerticalPath(ranks);
         }

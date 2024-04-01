@@ -2,13 +2,12 @@ package controller.board;
 
 import application.BoardService;
 import dto.MovementDto;
-import ui.InputView;
-import ui.output.BoardOutputView;
-
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import ui.InputView;
+import ui.output.BoardOutputView;
 
 public class BoardController {
     private final InputView inputView;
