@@ -16,11 +16,23 @@ public class Application {
     public static void main(String[] args) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(new DefaultConnectionPool());
         InputView inputView = new InputView();
-        BoardController boardController = new BoardController(inputView, new BoardOutputView(),
-                new BoardService(new BoardDao(jdbcTemplate)));
-        RoomController roomController = new RoomController(inputView, new RoomOutputView(),
-                new RoomService(new RoomDao(jdbcTemplate)), boardController);
-        GateController gateController = new GateController(inputView, new GateOutputView(), roomController);
+        GateController gateController = createGateController(inputView, jdbcTemplate);
         gateController.run();
+    }
+
+    private static GateController createGateController(InputView inputView, JdbcTemplate jdbcTemplate) {
+        RoomController roomController = createRoomController(jdbcTemplate, inputView);
+        return new GateController(inputView, new GateOutputView(), roomController);
+    }
+
+    private static RoomController createRoomController(JdbcTemplate jdbcTemplate, InputView inputView) {
+        RoomService roomService = new RoomService(new RoomDao(jdbcTemplate));
+        BoardController boardController = createBoardController(jdbcTemplate, inputView);
+        return new RoomController(inputView, new RoomOutputView(), roomService, boardController);
+    }
+
+    private static BoardController createBoardController(JdbcTemplate jdbcTemplate, InputView inputView) {
+        BoardService boardService = new BoardService(new BoardDao(jdbcTemplate));
+        return new BoardController(inputView, new BoardOutputView(), boardService);
     }
 }
