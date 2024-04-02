@@ -17,8 +17,7 @@ public class GateController {
 
     public void run() {
         outputView.printStartMessage();
-        GateCommand command;
-        while ((command = getCommand()) != GateCommand.END) {
+        while (getCommand() != GateCommand.END) {
             roomController.execute();
         }
     }
