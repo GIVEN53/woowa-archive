@@ -14,7 +14,7 @@ public class Position {
     static {
         POSITION_CACHE = Arrays.stream(File.values())
                 .flatMap(file -> Arrays.stream(Rank.values())
-                        .map(rank -> Map.entry(toKey(file, rank), new Position(file, rank))))
+                        .map(rank -> Map.entry(file.expression() + rank.number(), new Position(file, rank))))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
@@ -34,11 +34,7 @@ public class Position {
     }
 
     public static Position of(File file, Rank rank) {
-        return from(toKey(file, rank));
-    }
-
-    private static String toKey(File file, Rank rank) {
-        return file.expression() + rank.number();
+        return from(file.expression() + rank.number());
     }
 
     public List<Position> findPathTo(Position target) {
