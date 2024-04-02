@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class JdbcTemplate {
+    private static final int PK_GENERATION_STRATEGY = Statement.RETURN_GENERATED_KEYS;
+
     private final ConnectionPool connectionPool;
 
     public JdbcTemplate(ConnectionPool connectionPool) {
@@ -17,13 +19,17 @@ public class JdbcTemplate {
 
     public void update(String query, Object... args) {
         var connection = connectionPool.getConnection();
-        try (var preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-            for (int i = 0; i < args.length; i++) {
-                preparedStatement.setObject(i + 1, args[i]);
-            }
+        try (var preparedStatement = connection.prepareStatement(query, PK_GENERATION_STRATEGY)) {
+            setParameters(preparedStatement, args);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new IllegalArgumentException(e.getMessage());
+        }
+    }
+
+    private void setParameters(PreparedStatement preparedStatement, Object[] args) throws SQLException {
+        for (int i = 0; i < args.length; i++) {
+            preparedStatement.setObject(i + 1, args[i]);
         }
     }
 
@@ -31,33 +37,39 @@ public class JdbcTemplate {
         var connection = connectionPool.getConnection();
         try (var preparedStatement = connection.prepareStatement(query);
              var resultSet = executeQuery(preparedStatement, args)) {
-            if (resultSet.next()) {
-                return Optional.of(rowMapper.mapRow(resultSet));
-            }
-            return Optional.empty();
+            return mapRow(rowMapper, resultSet);
         } catch (SQLException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
+    }
+
+    private <T> Optional<T> mapRow(RowMapper<T> rowMapper, ResultSet resultSet) throws SQLException {
+        if (resultSet.next()) {
+            return Optional.of(rowMapper.mapRow(resultSet));
+        }
+        return Optional.empty();
     }
 
     public <T> List<T> query(String query, RowMapper<T> rowMapper, Object... args) {
         var connection = connectionPool.getConnection();
         try (var preparedStatement = connection.prepareStatement(query);
              var resultSet = executeQuery(preparedStatement, args)) {
-            List<T> results = new ArrayList<>();
-            while (resultSet.next()) {
-                results.add(rowMapper.mapRow(resultSet));
-            }
-            return results;
+            return mapRows(rowMapper, resultSet);
         } catch (SQLException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
     }
 
-    private ResultSet executeQuery(PreparedStatement preparedStatement, Object... args) throws SQLException {
-        for (int i = 0; i < args.length; i++) {
-            preparedStatement.setObject(i + 1, args[i]);
+    private <T> List<T> mapRows(RowMapper<T> rowMapper, ResultSet resultSet) throws SQLException {
+        List<T> results = new ArrayList<>();
+        while (resultSet.next()) {
+            results.add(rowMapper.mapRow(resultSet));
         }
+        return results;
+    }
+
+    private ResultSet executeQuery(PreparedStatement preparedStatement, Object... args) throws SQLException {
+        setParameters(preparedStatement, args);
         return preparedStatement.executeQuery();
     }
 }
