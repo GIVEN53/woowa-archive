@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -73,7 +74,7 @@ public class ChessBoard {
 
     private double calculateSameFilePawnScore(Color color) {
         Map<File, Long> sameFilePawnCount = board.entrySet().stream()
-                .filter(entry -> entry.getValue().isSameColor(color) && entry.getValue().isSameType(Type.PAWN))
+                .filter(entry -> isSameColorPawn(entry, color))
                 .map(entry -> entry.getKey().file())
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
@@ -81,6 +82,10 @@ public class ChessBoard {
                 .filter(count -> count >= SAME_FILE_PAWN_COUNT)
                 .mapToDouble(count -> count * SAME_FILE_PAWN_SCORE)
                 .sum();
+    }
+
+    private boolean isSameColorPawn(Entry<Position, Piece> entry, Color color) {
+        return entry.getValue().isSameColor(color) && entry.getValue().isSameType(Type.PAWN);
     }
 
     public boolean isKingCaptured() {
