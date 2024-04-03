@@ -24,6 +24,8 @@ public class JdbcTemplate {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new IllegalArgumentException(e.getMessage());
+        } finally {
+            connectionPool.releaseConnection(connection);
         }
     }
 
@@ -40,6 +42,8 @@ public class JdbcTemplate {
             return mapRow(rowMapper, resultSet);
         } catch (SQLException e) {
             throw new IllegalArgumentException(e.getMessage());
+        } finally {
+            connectionPool.releaseConnection(connection);
         }
     }
 
@@ -57,6 +61,8 @@ public class JdbcTemplate {
             return mapRows(rowMapper, resultSet);
         } catch (SQLException e) {
             throw new IllegalArgumentException(e.getMessage());
+        } finally {
+            connectionPool.releaseConnection(connection);
         }
     }
 

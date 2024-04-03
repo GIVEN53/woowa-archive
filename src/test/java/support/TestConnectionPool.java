@@ -31,4 +31,8 @@ public class TestConnectionPool implements ConnectionPool {
     public Connection getConnection() {
         return this.connection;
     }
+
+    @Override
+    public void releaseConnection(Connection connection) {
+    }
 }

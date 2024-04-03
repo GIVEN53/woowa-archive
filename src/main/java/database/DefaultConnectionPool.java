@@ -4,8 +4,8 @@ import database.exception.ConnectionFailedException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.stream.Stream;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 public class DefaultConnectionPool implements ConnectionPool {
     private static final String SERVER = "localhost:13306";
@@ -14,15 +14,16 @@ public class DefaultConnectionPool implements ConnectionPool {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
     private static final int MAX_CONNECTIONS_SIZE = 5;
+    private static final boolean THREAD_FAIR_POLICY = true;
 
-    private final List<Connection> connections;
-    private int currentIndex;
+    private final BlockingQueue<Connection> connections;
 
     public DefaultConnectionPool() {
-        this.currentIndex = 0;
-        this.connections = Stream.generate(this::createConnection)
-                .limit(MAX_CONNECTIONS_SIZE)
-                .toList();
+        this.connections = new ArrayBlockingQueue<>(MAX_CONNECTIONS_SIZE, THREAD_FAIR_POLICY);
+        for (int i = 0; i < MAX_CONNECTIONS_SIZE; i++) {
+            Connection connection = createConnection();
+            connections.add(connection);
+        }
     }
 
     private Connection createConnection() {
@@ -35,8 +36,19 @@ public class DefaultConnectionPool implements ConnectionPool {
 
     @Override
     public Connection getConnection() {
-        synchronized (this.connections) {
-            return connections.get(currentIndex++ % connections.size());
+        try {
+            return connections.take();
+        } catch (InterruptedException e) {
+            throw new IllegalStateException((e.getMessage()));
+        }
+    }
+
+    @Override
+    public void releaseConnection(Connection connection) {
+        try {
+            connections.put(connection);
+        } catch (InterruptedException e) {
+            throw new IllegalStateException(e.getMessage());
         }
     }
 }
