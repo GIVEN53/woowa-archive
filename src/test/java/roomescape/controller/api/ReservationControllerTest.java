@@ -149,6 +149,8 @@ class ReservationControllerTest extends BaseControllerTest {
             softly.assertThat(response.header("Location")).isEqualTo("/reservations/1");
 
             softly.assertThat(reservationResponse.date()).isEqualTo(date);
+            softly.assertThat(reservationResponse.theme()).isEqualTo(theme.getRawName());
+            softly.assertThat(reservationResponse.startAt()).isEqualTo(time.getStartAt());
         });
     }
 
