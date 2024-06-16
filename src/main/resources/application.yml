@@ -7,7 +7,7 @@ spring:
       path: /h2-console
   sql:
     init:
-      data-locations: init.sql
+      data-locations: classpath:init.sql
 
 jwt:
   secret: prinroomescapeprinroomescapeprinroomescapeprinroomescapeprinroomescapeprinroomescape
