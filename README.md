@@ -43,14 +43,41 @@
 - 좋코나코
     - https://github.com/2024-woowacourse-study/read-joconaco
     - '좋은 코드 나쁜 코드' 책을 읽고 토론하는 스터디
+- 레벨 인터뷰
+    - https://github.com/2024-woowacourse-study/level-interview
+    - Java 및 CS 관련 문답을 정리하고, 모의 면접을 진행하는 스터디
 
 <br/>
 
-## 🌓 Level2  (2024.04.16 ~ 2024.00.00)
+## 🌓 Level2  (2024.04.16 ~ 2024.06.14)
+
+### 학습 목표
+
+- 웹 애플리케이션을 개발하며 웹 백엔드 개발자의 기본 역량을 쌓는다.
+- 주어진 요구사항에 맞춰 기능을 추가/변경하며 애플리케이션을 발전시켜 나간다.
+- 클라우드 환경에 배포를 하여 사용자에게 서비스할 수 있는 최소한의 상태로 만든다.
+- 웹 애플리케이션 구현을 위해 필요한 새로운 기술을 학습한다.
+- 이 과정에서 효과적으로 새로운 기술을 익힐 수 있는 본인만의 학습 방법을 찾는 시도를 한다.
+- 웹 프로그래밍 과정에서도 **읽기 좋은 코드, 유지보수하기 좋은 코드**를 작성하는 경험을 한다.
+
+### 미션 목록
+
+| Mission     | Code                                                                                                             | Pull Requests & Reviews                                                                                                                                                 |
+|-------------|------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 방탈출 예약 관리   | [spring-roomescape-admin](https://github.com/GIVEN53/woowa-archive/tree/main/origin/spring-roomescape-admin)     | Step1: [PR-43](https://github.com/woowacourse/spring-roomescape-admin/pull/48)<br/>Step2: [PR-144](https://github.com/woowacourse/spring-roomescape-admin/pull/144)     |
+| 방탈출 사용자 예약  | [spring-roomescape-member](https://github.com/GIVEN53/woowa-archive/tree/main/origin/spring-roomescape-member)   | Step1: [PR-39](https://github.com/woowacourse/spring-roomescape-member/pull/39)<br/>Step2: [PR-134](https://github.com/woowacourse/spring-roomescape-member/pull/134)   |
+| 방탈출 예약 대기   | [spring-roomescape-waiting](https://github.com/GIVEN53/woowa-archive/tree/main/origin/spring-roomescape-waiting) | Step1: [PR-6](https://github.com/woowacourse/spring-roomescape-waiting/pull/6)<br/>Step2: [PR-150](https://github.com/woowacourse/spring-roomescape-waiting/pull/150)   |
+| 방탈출 결제 / 배포 | [spring-roomescape-payment](https://github.com/GIVEN53/woowa-archive/tree/main/origin/spring-roomescape-payment) | Step1: [PR-39](https://github.com/woowacourse/spring-roomescape-payment/pull/39)<br/>Step2: [PR-144](https://github.com/woowacourse/spring-roomescape-payment/pull/144) |
+
+### 스터디
+
+- 레벨 인터뷰
+    - https://github.com/2024-woowacourse-study/level-interview
+    - Spring 및 CS 관련 문답을 정리하고, 모의 면접을 진행하는 스터디
 
 <br/>
 
-## 🌔 Level3  (2024.00.00 ~ 2024.00.00)
+## 🌔 Level3  (2024.07.02 ~ 2024.00.00)
 
 <br/>
 
@@ -66,9 +93,10 @@
 
 - 유연성 강화 스터디 경험을 시리즈물로 제작하기
 
-| Level  | Topic            | Pull Requests & Reviews                                       |
-|--------|------------------|---------------------------------------------------------------|
-| Level1 | 유연해지는 방법, 덜 완벽하기 | [PR-43](https://github.com/woowacourse/woowa-writing/pull/43) |
+| Level  | Topic                  | Pull Requests & Reviews                                         |
+|--------|------------------------|-----------------------------------------------------------------|
+| Level1 | 유연해지는 방법, 덜 완벽하기       | [PR-43](https://github.com/woowacourse/woowa-writing/pull/43)   |
+| Level2 | 완벽을 내려놓았을 때, 비로소 보이는 것 | [PR-215](https://github.com/woowacourse/woowa-writing/pull/215) |
 
 <br/>
 
