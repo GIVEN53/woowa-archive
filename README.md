@@ -75,19 +75,44 @@
     - https://github.com/2024-woowacourse-study/level-interview
     - Spring 및 CS 관련 문답을 정리하고, 모의 면접을 진행하는 스터디
 
+### 동아리
+- 개문탐
+    - https://github.com/2024-woowacourse-study/gae-mun-tam
+    - 개발 문화를 탐구하고 토론하는 동아리
+
 <br/>
 
-## 🌔 Level3  (2024.07.02 ~ 2024.00.00)
+## 🌔 Level3  (2024.07.02 ~ 2024.08.23)
+
+### 학습 목표
+- 팀으로 개발하고 운영하며 성장
+- 협업 경험
+
+### 땅콩 - 심심풀이 땅콩처럼 가벼운 주제로 친구들과 즐기는 단체 대화주제 제공 서비스
+- [Repository](https://github.com/woowacourse-teams/2024-ddangkong)
+- [PR 목록](https://github.com/woowacourse-teams/2024-ddangkong/pulls?q=is%3Apr+author%3AGIVEN53)
+- [서비스 URL](https://ddangkong.kr)
+
+### 스터디
+- 리마탐
+    - https://github.com/2024-woowacourse-study/re-ma-tam
+    - 'Real MySQL 8.0' 책을 읽고 발표하는 스터디
+
+### 동아리
+- 개문탐
+    - https://github.com/2024-woowacourse-study/gae-mun-tam
+    - 개발 문화를 탐구하고 토론하는 동아리
 
 <br/>
 
-## 🌕 Level4  (2024.00.00 ~ 2024.00.00)
+## 🌕 Level4  (2024.09.02 ~ 2024.00.00)
 
 <br/>
 
 ## 🌚 테코톡 & 글쓰기
 
 ### 테코톡
+- [[10분 테코톡] 프린의 Gradle](https://www.youtube.com/watch?v=jSInFhiz1kY)
 
 ### 글쓰기 목록
 
@@ -97,6 +122,7 @@
 |--------|------------------------|-----------------------------------------------------------------|
 | Level1 | 유연해지는 방법, 덜 완벽하기       | [PR-43](https://github.com/woowacourse/woowa-writing/pull/43)   |
 | Level2 | 완벽을 내려놓았을 때, 비로소 보이는 것 | [PR-215](https://github.com/woowacourse/woowa-writing/pull/215) |
+| Level3 | 오늘 하루는 완벽했어? | [PR-393](https://github.com/woowacourse/woowa-writing/pull/393) |
 
 <br/>
 
