@@ -1,0 +1,5 @@
+rootProject.name = 'java-jdbc'
+include 'jdbc'
+include 'mvc'
+include 'app'
+include 'study'
