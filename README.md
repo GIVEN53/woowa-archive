@@ -76,6 +76,7 @@
     - Spring 및 CS 관련 문답을 정리하고, 모의 면접을 진행하는 스터디
 
 ### 동아리
+
 - 개문탐
     - https://github.com/2024-woowacourse-study/gae-mun-tam
     - 개발 문화를 탐구하고 토론하는 동아리
@@ -85,33 +86,66 @@
 ## 🌔 Level3  (2024.07.02 ~ 2024.08.23)
 
 ### 학습 목표
+
 - 팀으로 개발하고 운영하며 성장
 - 협업 경험
 
 ### 땅콩 - 심심풀이 땅콩처럼 가벼운 주제로 친구들과 즐기는 단체 대화주제 제공 서비스
+
 - [Repository](https://github.com/woowacourse-teams/2024-ddangkong)
 - [PR 목록](https://github.com/woowacourse-teams/2024-ddangkong/pulls?q=is%3Apr+author%3AGIVEN53)
 - [서비스 URL](https://ddangkong.kr)
 
 ### 스터디
+
 - 리마탐
     - https://github.com/2024-woowacourse-study/re-ma-tam
     - 'Real MySQL 8.0' 책을 읽고 발표하는 스터디
 
 ### 동아리
+
 - 개문탐
     - https://github.com/2024-woowacourse-study/gae-mun-tam
     - 개발 문화를 탐구하고 토론하는 동아리
 
 <br/>
 
-## 🌕 Level4  (2024.09.02 ~ 2024.00.00)
+## 🌕 Level4  (2024.09.02 ~ 2024.11.01)
+
+### 학습 목표
+
+- 웹 서버를 직접 구현하여 HTTP에 대한 이해도를 높인다.
+- 나만의 라이브러리를 직접 구현하여 업무에서 발생하는 중복 코드를 제거하는 역량을 쌓는다.
+- MVC, DI 컨테이너, AOP를 직접 구현하여 스프링 프레임워크의 내부 동작 원리에 대한 이해도를 높인다.
+- 웹 서버, 라이브러리, 프레임워크를 구현하면서 TDD, 클린 코드, 객체지향설계에 대한 연습을 한다.
+
+### 미션 목록
+
+| Mission         | Code                                                                                 | Pull Requests & Reviews                                                                                                                                                                                                                                                                 |
+|-----------------|--------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Tomcat 구현하기     | [java-http](https://github.com/GIVEN53/woowa-archive/tree/main/origin/java-http)     | Step1, 2: [PR-542](https://github.com/woowacourse/java-http/pull/542)<br/>Step3: [PR-647](https://github.com/woowacourse/java-http/pull/647)<br/>Step4: [PR-736](https://github.com/woowacourse/java-http/pull/736)                                                                     |
+| @MVC 구현하기       | [java-mvc](https://github.com/GIVEN53/woowa-archive/tree/main/origin/java-mvc)       | Step1: [PR-690](https://github.com/woowacourse/java-mvc/pull/690)<br/>Step2: [PR-730](https://github.com/woowacourse/java-mvc/pull/730)<br/>Step3: [PR-844](https://github.com/woowacourse/java-mvc/pull/844)                                                                           |
+| JDBC 라이브러리 구현하기 | [java-jdbc](https://github.com/GIVEN53/woowa-archive/tree/main/origin/java-jdbc)     | Step1: [PR-646](https://github.com/woowacourse/java-jdbc/pull/646)<br/>Step2: [PR-706](https://github.com/woowacourse/java-jdbc/pull/706)<br/>Step3: [PR-835](https://github.com/woowacourse/java-jdbc/pull/835)<br/>Step4: [PR-861](https://github.com/woowacourse/java-jdbc/pull/861) |
+| DB 복제와 캐시       | [java-coupon](https://github.com/GIVEN53/woowa-archive/tree/main/origin/java-coupon) | Step1: [PR-65](https://github.com/woowacourse/java-coupon/pull/65)<br/>Step2: [PR-93](https://github.com/woowacourse/java-coupon/pull/93)                                                                                                                                               |
+
+### 스터디
+
+- 리마탐
+    - https://github.com/2024-woowacourse-study/re-ma-tam
+    - 'Real MySQL 8.0' 책을 읽고 발표하는 스터디
+
+### 동아리
+
+- 개문탐
+    - https://github.com/2024-woowacourse-study/gae-mun-tam
+    - 개발 문화를 탐구하고 토론하는 동아리
 
 <br/>
 
 ## 🌚 테코톡 & 글쓰기
 
 ### 테코톡
+
 - [[10분 테코톡] 프린의 Gradle](https://www.youtube.com/watch?v=jSInFhiz1kY)
 
 ### 글쓰기 목록
@@ -122,7 +156,13 @@
 |--------|------------------------|-----------------------------------------------------------------|
 | Level1 | 유연해지는 방법, 덜 완벽하기       | [PR-43](https://github.com/woowacourse/woowa-writing/pull/43)   |
 | Level2 | 완벽을 내려놓았을 때, 비로소 보이는 것 | [PR-215](https://github.com/woowacourse/woowa-writing/pull/215) |
-| Level3 | 오늘 하루는 완벽했어? | [PR-393](https://github.com/woowacourse/woowa-writing/pull/393) |
+| Level3 | 오늘 하루는 완벽했어?           | [PR-393](https://github.com/woowacourse/woowa-writing/pull/393) |
+
+- 테크니컬 라이팅
+
+| Level  | Topic                                      | Pull Requests                                                   |
+|--------|--------------------------------------------|-----------------------------------------------------------------|
+| Level4 | 어노테이션 하나로 테스트에서 *LocalDateTime.now()* 제어하기 | [PR-569](https://github.com/woowacourse/woowa-writing/pull/569) |
 
 <br/>
 
